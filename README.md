@@ -1,4 +1,4 @@
-# Splash Auto Detail 🚗💦
+# Splash Auto Detail 🏎️
 
 > Professional auto detailing services serving Chula Vista, CA since 2011
 
