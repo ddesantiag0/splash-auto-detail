@@ -21,3 +21,7 @@ Chula Vista, CA 91914
 ## 💻 About This Repository
 This repository contains the website and digital assets for Splash Auto Detail.  
 It supports the business’s online presence and customer outreach.
+
+
+## Tech
+- HTML / CSS / JavaScript (no framework)
