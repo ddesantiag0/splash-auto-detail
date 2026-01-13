@@ -346,6 +346,6 @@ Test these after deployment:
 
 ---
 
-**Your site is now fully optimized for search engines and ready for Google Business!** 
+**The site is now fully optimized for search engines and ready for Google Business.** 
 
-The technical foundation is complete. Focus on completing your Google Business Profile, gathering reviews, and adding photos for maximum local SEO impact.
+The technical foundation is complete. Next focus: completing the Google Business Profile, gathering reviews, and adding photos for maximum local SEO impact.

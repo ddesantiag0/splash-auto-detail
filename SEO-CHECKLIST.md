@@ -216,6 +216,6 @@ Pre-answer these on your Google Business Profile:
 
 ---
 
-**Print this checklist and check off items as you complete them!**
+**Print this checklist and check off items as they are completed.**
 
 For detailed instructions on any item, see `SEO-GUIDE.md`
