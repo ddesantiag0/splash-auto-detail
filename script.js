@@ -199,6 +199,136 @@ if (mapIframe && 'IntersectionObserver' in window) {
 }
 
 // ==========================================
+// GALLERY FUNCTIONALITY
+// ==========================================
+
+function initGallery() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  if (!filterButtons.length || !galleryItems.length) return;
+
+  // Filter gallery items
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+
+      // Update active button
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter items
+      galleryItems.forEach((item) => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Lightbox functionality
+  const lightbox = createLightbox();
+
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      if (img && img.src) {
+        openLightbox(lightbox, img.src, img.alt);
+      }
+    });
+  });
+}
+
+function createLightbox() {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = `
+    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&lsaquo;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" />
+    </div>
+    <button class="lightbox-nav lightbox-next" aria-label="Next image">&rsaquo;</button>
+  `;
+  document.body.appendChild(lightbox);
+
+  const closeBtn = lightbox.querySelector('.lightbox-close');
+  const prevBtn = lightbox.querySelector('.lightbox-prev');
+  const nextBtn = lightbox.querySelector('.lightbox-next');
+
+  closeBtn.addEventListener('click', () => closeLightbox(lightbox));
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox(lightbox);
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox(lightbox);
+    if (e.key === 'ArrowLeft') navigateLightbox(-1, lightbox);
+    if (e.key === 'ArrowRight') navigateLightbox(1, lightbox);
+  });
+
+  prevBtn.addEventListener('click', () => navigateLightbox(-1, lightbox));
+  nextBtn.addEventListener('click', () => navigateLightbox(1, lightbox));
+
+  return lightbox;
+}
+
+let currentImageIndex = 0;
+
+function openLightbox(lightbox, src, alt) {
+  const img = lightbox.querySelector('.lightbox-content img');
+  img.src = src;
+  img.alt = alt || 'Gallery image';
+
+  // Get current visible images
+  const visibleImages = Array.from(
+    document.querySelectorAll('.gallery-item:not(.hidden) img')
+  );
+  currentImageIndex = visibleImages.findIndex(item => item.src === src);
+
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(lightbox) {
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navigateLightbox(direction, lightbox) {
+  const visibleImages = Array.from(
+    document.querySelectorAll('.gallery-item:not(.hidden) img')
+  );
+
+  if (visibleImages.length === 0) return;
+
+  currentImageIndex += direction;
+
+  if (currentImageIndex < 0) {
+    currentImageIndex = visibleImages.length - 1;
+  } else if (currentImageIndex >= visibleImages.length) {
+    currentImageIndex = 0;
+  }
+
+  const img = lightbox.querySelector('.lightbox-content img');
+  const targetImg = visibleImages[currentImageIndex];
+  img.src = targetImg.src;
+  img.alt = targetImg.alt || 'Gallery image';
+}
+
+// Initialize gallery on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGallery);
+} else {
+  initGallery();
+}
+
+// ==========================================
 // ACCESSIBILITY ENHANCEMENTS
 // ==========================================
 
