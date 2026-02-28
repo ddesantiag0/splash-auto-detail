@@ -149,28 +149,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
-// ANALYTICS HELPERS (Optional)
-// ==========================================
-
-// Track phone number clicks
-document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-  link.addEventListener('click', () => {
-    console.log('Phone call initiated:', link.href);
-    // Add your analytics tracking here if needed
-    // Example: gtag('event', 'phone_call', { method: 'click' });
-  });
-});
-
-// Track direction clicks
-document.querySelectorAll('a[href*="google.com/maps"]').forEach(link => {
-  link.addEventListener('click', () => {
-    console.log('Directions requested');
-    // Add your analytics tracking here if needed
-    // Example: gtag('event', 'get_directions', { method: 'click' });
-  });
-});
-
-// ==========================================
 // PERFORMANCE OPTIMIZATION
 // ==========================================
 
@@ -353,9 +331,3 @@ if (navToggle && navLinks) {
     }
   });
 }
-
-// ==========================================
-// INITIALIZATION LOG
-// ==========================================
-
-console.log('Splash Auto Detail website loaded successfully');
