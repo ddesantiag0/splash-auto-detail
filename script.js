@@ -206,6 +206,9 @@ function initGallery() {
     });
   });
 
+  const galleryImages = document.querySelectorAll('.gallery-item img');
+  if (!galleryImages.length) return;
+
   // Lightbox functionality
   const lightbox = createLightbox();
 

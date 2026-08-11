@@ -1,184 +1,65 @@
-# Splash Auto Detail 🏎️
+# Splash Auto Detail Website
 
-> Professional auto detailing services serving Chula Vista, CA since 2011
+A responsive static website for Splash Auto Detail, a family-operated auto detailing business in Chula Vista, California.
 
-Family-owned and operated business specializing in luxury vehicles, Teslas, and all makes and models.
+## Implemented features
 
-## 📍 Contact Information
-**Splash Auto Detail**  
-851 Showroom Pl  
-Chula Vista, CA 91914  
-📞 (619) 993-8536  
-🌐 [www.splashautodetail.com](https://www.splashautodetail.com)
+- Mobile-first HTML and CSS with a responsive navigation menu
+- Click-to-call and Google Maps direction links
+- Dynamic open/closed messaging based on published business hours
+- Service, business-hours, contact, and location sections
+- LocalBusiness structured data, canonical metadata, sitemap, and robots file
+- Accessible section navigation and reduced-motion styles
+- Automated checks for missing local assets, broken section links, and placeholder URLs
 
-## 🕒 Business Hours
-- **Monday – Friday:** 8:15 AM – 5:00 PM  
-- **Saturday:** 8:15 AM – 2:00 PM  
-- **Sunday:** Closed  
+The gallery currently uses clearly labeled visual placeholders because verified business photographs are not stored in this repository. Add real, authorized work photos before presenting it as a customer portfolio.
 
-## 🚗 Services
-- Exterior Detailing (hand wash, wax, wheel cleaning)
-- Interior Detailing (deep vacuum, upholstery cleaning)
-- Complete Detail Packages (full inside + outside)
-- Luxury & Tesla Specialist Care
-- Paint Correction & Protection
-- Maintenance Details
+## Local preview
 
-## 💻 Website Technology Stack
-- **Pure HTML5** - Semantic, accessible markup
-- **Modern CSS3** - Custom properties, responsive design
-- **Vanilla JavaScript** - No frameworks, fast loading
-- **SEO Optimized** - Schema.org structured data, meta tags
-- **Mobile-First** - Fully responsive across all devices
+No build step or runtime framework is required. Serve the directory with any static server, for example:
 
-## 📦 Repository Files
-
-### Core Files
-- `index.html` - Main website (700+ lines, fully optimized)
-- `styles.css` - Complete styling system (1300+ lines)
-- `script.js` - Interactive features (330+ lines)
-
-### SEO & Configuration
-- `robots.txt` - Search engine crawler instructions
-- `sitemap.xml` - Site structure for search engines
-- `.htaccess` - Apache server configuration (optional)
-
-### Documentation
-- `SEO-GUIDE.md` - Complete Google Business & SEO setup guide
-- `SEO-CHECKLIST.md` - Step-by-step deployment checklist
-- `README.md` - This file
-- `images/README.md` - Image requirements and instructions
-
-## 🚀 Deployment Instructions
-
-### 1. Quick Deploy (Any Web Host)
-Upload these files to your web server:
-```
-index.html
-styles.css
-script.js
-robots.txt
-sitemap.xml
-.htaccess (if using Apache)
+```bash
+npx serve .
 ```
 
-### 2. Update URLs
-Before deploying, update placeholder URLs in `index.html`:
-- Change `https://www.splashautodetail.com/` to your actual domain
-- Update social media URLs once profiles are created
-- Add your actual `og-image.jpg` file (1200x630px)
+Then open the local address printed by the server. Opening `index.html` directly also works, though a local server better matches deployment behavior.
 
-### 3. Create Favicon Files
-Generate favicons using [RealFaviconGenerator](https://realfavicongenerator.net/):
-- `favicon-32x32.png`
-- `favicon-16x16.png`
-- `apple-touch-icon.png`
+## Verification
 
-### 4. SSL Certificate
-Ensure your hosting has an SSL certificate (HTTPS):
-- Most hosts offer free Let's Encrypt certificates
-- Required for Google ranking and customer trust
+Requires Node.js 18 or newer:
 
-### 5. Google Business Profile
-Follow the comprehensive guide in `SEO-GUIDE.md`:
-- Claim your Google Business Profile
-- Add photos (10+ recommended)
-- Complete all business information
-- Start collecting reviews
+```bash
+npm test
+```
 
-## 📊 SEO Features Implemented
+The tests confirm that page-level local assets exist, internal navigation targets resolve, and production markup does not contain known placeholder domains or missing photo references.
 
-✅ **Structured Data (JSON-LD)**
-- LocalBusiness/AutoRepair schema
-- Complete business information
-- Service catalog
-- Operating hours
-- Geographic coordinates
+## Deployment checklist
 
-✅ **Meta Tags**
-- Comprehensive title and description
-- Open Graph for social sharing
-- Twitter Cards
-- Geo-location data
-- Keywords optimization
+1. Confirm the phone number, street address, hours, services, and domain with the business owner.
+2. Replace gallery placeholders with optimized, authorized photographs and accurate alt text.
+3. Add a 1200×630 social-sharing image before enabling `og:image` and Twitter image metadata.
+4. Deploy the static files to an HTTPS host.
+5. Validate structured data, mobile layout, and production links after deployment.
 
-✅ **Technical SEO**
-- Semantic HTML5
-- Mobile-responsive
-- Fast loading (< 1 second)
-- Accessible (WCAG 2.1 AA)
-- Sitemap and robots.txt
+See [SEO-CHECKLIST.md](SEO-CHECKLIST.md) and [SEO-GUIDE.md](SEO-GUIDE.md) for operational steps that require access to the business's accounts.
 
-✅ **Local SEO**
-- Location-specific keywords
-- NAP (Name, Address, Phone) consistency
-- Service area defined
-- Local business markup
+## Project structure
 
-## 🎯 Next Steps for Maximum SEO Impact
+```text
+index.html         Page content and structured data
+styles.css         Responsive visual system
+script.js          Navigation, hours, gallery, and accessibility behavior
+test/              Static integrity checks
+robots.txt         Search crawler policy
+sitemap.xml        Canonical site URL
+SEO-*.md           Deployment and local-search guidance
+```
 
-1. **Google Business Profile** (Priority #1)
-   - Complete 100% of profile
-   - Upload 15+ photos
-   - Get 10+ reviews
-   - Post weekly updates
+## Content accuracy
 
-2. **Social Media Presence**
-   - Create Facebook Business Page
-   - Set up Instagram Business account
-   - Claim Yelp listing
-   - Update social URLs in code
+The repository contains a website implementation, not evidence of professional certifications, search ranking, accessibility certification, or measured load times. Those claims should be made only after independent verification.
 
-3. **Content Strategy**
-   - Post before/after photos weekly
-   - Share detailing tips
-   - Announce special offers
-   - Engage with customer reviews
+## License
 
-4. **Monitor Performance**
-   - Set up Google Search Console
-   - Install Google Analytics 4
-   - Track Google Business insights
-   - Monitor review ratings
-
-## 🔧 Maintenance
-
-### Regular Updates
-- Update business hours for holidays
-- Add new service offerings as they're introduced
-- Keep social media links current
-- Refresh photos quarterly
-
-### Performance Monitoring
-- Check Google Search Console monthly
-- Review Google Business insights
-- Monitor page load speed
-- Test mobile responsiveness
-
-## 📱 Browser Compatibility
-✅ Chrome/Edge (latest)  
-✅ Firefox (latest)  
-✅ Safari (latest)  
-✅ Mobile browsers (iOS Safari, Chrome Mobile)  
-✅ Graceful degradation for older browsers  
-
-## 🔒 Security Features
-- HTTPS ready
-- XSS protection headers
-- Clickjacking prevention
-- MIME type sniffing protection
-- Secure referrer policy
-
-## 📄 License
-All rights reserved © Splash Auto Detail
-
-## 🤝 Support
-For website issues or updates:
-- Review the documentation in this repository
-- Check `SEO-GUIDE.md` for Google Business questions
-- Refer to `SEO-CHECKLIST.md` for deployment steps
-
----
-
-**Last Updated:** February 2026  
-**Version:** 2.0 (SEO Optimized)
+See [LICENSE](LICENSE).
