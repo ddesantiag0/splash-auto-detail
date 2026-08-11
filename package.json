@@ -1,0 +1,9 @@
+{
+  "name": "splash-auto-detail-site",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Responsive static website for Splash Auto Detail in Chula Vista.",
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=18" },
+  "license": "SEE LICENSE IN LICENSE"
+}
