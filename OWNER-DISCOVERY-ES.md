@@ -9,7 +9,6 @@ una respuesta final y `No aplica` cuando la pregunta no corresponda al negocio.
 
 ## Cómo revisar este documento entre los dos dueños
 
-- Los dos dueños tienen la misma autoridad y deben revisar cada sección.
 - Cada dueño puede contestar en el idioma que le resulte más cómodo.
 - Pongan las iniciales junto a las respuestas anotadas por separado para
   conservar claramente la opinión de cada dueño.
