@@ -16,7 +16,7 @@ una respuesta final y `No aplica` cuando la pregunta no corresponda al negocio.
   lanzamiento se deben hablar con los dos dueños.
 - Una idea nueva para la aplicación no cambia la manera actual de trabajar a
   menos que los dos dueños estén de acuerdo.
-- Si hay respuestas diferentes, anótenlas en la **Sección 14: Decisiones
+- Si hay respuestas diferentes, anótenlas en la **Sección 15: Decisiones
   pendientes**.
 - Los dos dueños deben aprobar la información antes del lanzamiento.
 
@@ -429,7 +429,55 @@ quién controla la cuenta y si se tiene acceso.
 
 ---
 
-## 14. Decisiones pendientes
+## 14. Ideas para considerar
+
+Las ideas de esta sección son propuestas, no requisitos ya aprobados. Los dos
+dueños deben decidir si cada idea se incluye en el lanzamiento, se hace después
+o no se quiere implementar.
+
+### Idea: seguimiento del progreso del vehículo
+
+El cliente podría abrir una vista sencilla—parecida al seguimiento de comida o
+entregas—para saber en qué etapa se encuentra su vehículo.
+
+Posibles etapas visibles para el cliente:
+
+`En espera / Aún no se empieza → Trabajo en proceso → Inspección final → Listo para recoger → Terminado`
+
+- **Prioridad:** [LANZAMIENTO / DESPUÉS / NO SE QUIERE / FALTA DECIDIR]
+- **¿Qué etapas debe ver el cliente?** [ESCRIBA AQUÍ]
+- **¿“Vehículo recibido” debe ser una etapa separada?** [ESCRIBA AQUÍ]
+- **¿Se debe mostrar “Inspección final” o dejarla solamente para el personal?** [ESCRIBA AQUÍ]
+- **¿Quién será responsable de actualizar el estado?** [ESCRIBA AQUÍ]
+- **¿Cómo lo actualizará el personal—teléfono, tableta, computadora u otro método?** [ESCRIBA AQUÍ]
+- **¿Cada cambio debe mandar mensaje de texto, correo, notificación de la aplicación o ninguna notificación?** [ESCRIBA AQUÍ]
+- **¿El cliente debe ver una hora aproximada de terminación?** [ESCRIBA AQUÍ]
+- **¿El personal podrá agregar fotos o notas del progreso?** [ESCRIBA AQUÍ]
+- **¿Cómo se avisarán los retrasos o cambios en la hora aproximada?** [ESCRIBA AQUÍ]
+- **¿Cómo abrirá el cliente el seguimiento de manera segura?** [ESCRIBA AQUÍ — por ejemplo: enlace privado, teléfono y código, o cuenta de cliente]
+- **¿Qué debe pasar si el personal olvida actualizar una etapa?** [ESCRIBA AQUÍ]
+- **Notas del dueño 1:** [ESCRIBA AQUÍ]
+- **Notas del dueño 2:** [ESCRIBA AQUÍ]
+- **Decisión final de los dos dueños:** [ESCRIBA AQUÍ]
+
+No se debe prometer una hora exacta de terminación sin confirmación del personal.
+
+### Otras ideas para el producto
+
+Usen esta tabla como una lista compartida de ideas. Una idea se convierte en
+función aprobada solamente cuando los dos dueños acepten su prioridad y sus
+reglas básicas.
+
+| Idea | Beneficio para el cliente o negocio | Lanzamiento / Después / No se quiere | Decisión y notas de los dos dueños |
+| --- | --- | --- | --- |
+| Seguimiento del progreso del vehículo | El cliente puede ver si el trabajo no ha empezado, está en proceso o está listo | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] |
+| [ESCRIBA LA IDEA AQUÍ] | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] |
+| [ESCRIBA LA IDEA AQUÍ] | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] |
+| [ESCRIBA LA IDEA AQUÍ] | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] | [ESCRIBA AQUÍ] |
+
+---
+
+## 15. Decisiones pendientes
 
 Anoten aquí cualquier tema que no se pueda decidir durante la primera reunión.
 Si los dueños dieron respuestas diferentes, escriban las dos respuestas sin
@@ -441,7 +489,7 @@ eliminar ninguna hasta tomar la decisión final.
 
 ---
 
-## 15. Aprobación de los dueños
+## 16. Aprobación de los dueños
 
 - **Confirmamos que la información del negocio es correcta:** [SÍ / NO]
 - **Aprobamos las prioridades para el lanzamiento:** [SÍ / NO]

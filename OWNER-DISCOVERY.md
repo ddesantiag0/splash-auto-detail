@@ -16,7 +16,7 @@ question does not apply.
   should be discussed with both owners.
 - Product ideas do not override current business rules unless both owners agree
   to change the process.
-- Record conflicting answers in **Section 14: Unresolved decisions**.
+- Record conflicting answers in **Section 15: Unresolved decisions**.
 - Both owners should complete the approval section before launch.
 
 ## Document information
@@ -427,7 +427,53 @@ account owner and whether access is available.
 
 ---
 
-## 14. Unresolved decisions
+## 14. Ideas to consider
+
+Ideas in this section are proposals, not approved requirements. Both owners
+should decide whether each idea belongs at launch, later, or not at all.
+
+### Idea: customer vehicle progress tracker
+
+A customer could open a simple status view—similar to food pickup or delivery
+tracking—to see where their vehicle is in the service process.
+
+Possible customer-facing stages:
+
+`Waiting / Not Started → In Progress → Final Inspection → Ready for Pickup → Completed`
+
+- **Priority:** [LAUNCH / LATER / NOT WANTED / NEEDS DECISION]
+- **Which stages should customers see?** [TYPE ANSWER HERE]
+- **Should “Checked In” be a separate stage?** [TYPE ANSWER HERE]
+- **Should “Final Inspection” be shown or kept internal?** [TYPE ANSWER HERE]
+- **Who is responsible for updating the status?** [TYPE ANSWER HERE]
+- **How would staff update it—phone, tablet, computer, or another method?** [TYPE ANSWER HERE]
+- **Should status changes send a text message, email, push notification, or no notification?** [TYPE ANSWER HERE]
+- **Should customers see an estimated completion time?** [TYPE ANSWER HERE]
+- **Should staff be able to add progress photos or notes?** [TYPE ANSWER HERE]
+- **How should delays or changes in the expected completion time be communicated?** [TYPE ANSWER HERE]
+- **How will the customer securely open the tracker?** [TYPE ANSWER HERE — for example: private link, phone number and code, or account login]
+- **What should happen if staff forgets to update a status?** [TYPE ANSWER HERE]
+- **Owner 1 notes:** [TYPE ANSWER HERE]
+- **Owner 2 notes:** [TYPE ANSWER HERE]
+- **Final decision by both owners:** [TYPE ANSWER HERE]
+
+Do not promise an exact completion time unless a staff member has confirmed it.
+
+### Additional product ideas
+
+Use this table as a shared idea backlog. An idea becomes an approved feature
+only after both owners agree on its priority and basic business rules.
+
+| Idea | Customer or business value | Launch / Later / Not wanted | Decision and notes from both owners |
+| --- | --- | --- | --- |
+| Vehicle progress tracker | Customers can see whether work has started, is in progress, or is ready | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] |
+| [TYPE IDEA HERE] | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] |
+| [TYPE IDEA HERE] | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] |
+| [TYPE IDEA HERE] | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] | [TYPE ANSWER HERE] |
+
+---
+
+## 15. Unresolved decisions
 
 Add anything that cannot be decided during the first review.
 
@@ -437,7 +483,7 @@ Add anything that cannot be decided during the first review.
 
 ---
 
-## 15. Owner approval
+## 16. Owner approval
 
 - **I confirm the business information above is accurate:** [YES / NO]
 - **I approve the launch priorities above:** [YES / NO]
