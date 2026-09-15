@@ -9,7 +9,6 @@ question does not apply.
 
 ## Two-owner review process
 
-- Both owners are equal decision-makers and should review every section.
 - Each owner should answer in the language they are most comfortable using.
 - Put the owner's initials beside separately recorded answers so both points of
   view remain visible.
