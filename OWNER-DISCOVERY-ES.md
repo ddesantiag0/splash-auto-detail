@@ -9,10 +9,12 @@ una respuesta final y `No aplica` cuando la pregunta no corresponda al negocio.
 
 ## Cómo revisar este documento entre los dos dueños
 
+- Los dos dueños tienen la misma autoridad y deben revisar cada sección.
 - Cada dueño puede contestar en el idioma que le resulte más cómodo.
-- Pongan las iniciales del dueño cuando una respuesta venga de una sola persona.
-- Las respuestas sobre el trabajo diario deben venir de la persona que maneja
-  esa parte del negocio.
+- Pongan las iniciales junto a las respuestas anotadas por separado para
+  conservar claramente la opinión de cada dueño.
+- Las operaciones, funciones del producto, precios, reglas y decisiones de
+  lanzamiento se deben hablar con los dos dueños.
 - Una idea nueva para la aplicación no cambia la manera actual de trabajar a
   menos que los dos dueños estén de acuerdo.
 - Si hay respuestas diferentes, anótenlas en la **Sección 14: Decisiones
@@ -48,7 +50,7 @@ una respuesta final y `No aplica` cuando la pregunta no corresponda al negocio.
 
 [ESCRIBA AQUÍ]
 
-### ¿Quién da la aprobación final antes de ofrecerlo a los clientes?
+### ¿Los dos dueños están de acuerdo en que ambos deben aprobar el lanzamiento?
 
 [ESCRIBA AQUÍ]
 

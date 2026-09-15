@@ -9,10 +9,12 @@ question does not apply.
 
 ## Two-owner review process
 
+- Both owners are equal decision-makers and should review every section.
 - Each owner should answer in the language they are most comfortable using.
-- Put the owner's initials beside an answer when only one owner supplied it.
-- Operational answers should come from the person who manages that part of the
-  business day to day.
+- Put the owner's initials beside separately recorded answers so both points of
+  view remain visible.
+- Business operations, product features, pricing, policies, and launch decisions
+  should be discussed with both owners.
 - Product ideas do not override current business rules unless both owners agree
   to change the process.
 - Record conflicting answers in **Section 14: Unresolved decisions**.
@@ -47,7 +49,7 @@ question does not apply.
 
 [TYPE ANSWER HERE]
 
-### Who gives final approval before anything is released to customers?
+### Do both owners agree that final approval is required before release?
 
 [TYPE ANSWER HERE]
 
@@ -439,4 +441,3 @@ Add anything that cannot be decided during the first review.
 - **Owner 1 approval and date:** [APPROVED / NOT APPROVED — DATE]
 - **Owner 2 name:** [TYPE ANSWER HERE]
 - **Owner 2 approval and date:** [APPROVED / NOT APPROVED — DATE]
-
