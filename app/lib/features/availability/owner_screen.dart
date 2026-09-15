@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/localization/app_text.dart';
 import 'wait_card.dart';
 import 'wait_service.dart';
@@ -14,7 +13,7 @@ class OwnerScreen extends StatefulWidget {
 class _OwnerScreenState extends State<OwnerScreen> {
   final _email = TextEditingController();
   final _password = TextEditingController();
-  StreamSubscription<AuthState>? _auth;
+  StreamSubscription<void>? _auth;
   bool _owner = false, _busy = false;
   String? _message;
   String? _status;
@@ -27,7 +26,7 @@ class _OwnerScreenState extends State<OwnerScreen> {
     super.initState();
     final client = WaitService.client;
     if (client == null) return;
-    _auth = client.auth.onAuthStateChange.listen((_) {
+    _auth = client.authChanges.stream.listen((_) {
       if (!mounted) return;
       // Run database work after the authentication callback releases its lock.
       scheduleMicrotask(_loadOwner);
@@ -37,19 +36,15 @@ class _OwnerScreenState extends State<OwnerScreen> {
 
   Future<void> _loadOwner() async {
     final client = WaitService.client!;
-    final user = client.auth.currentUser;
+    final signedIn = client.signedIn;
     if (!mounted) return;
     setState(() { _owner = false; _version = null; });
-    if (user == null) return;
+    if (!signedIn) return;
     try {
-      final membership = await client.from('shop_owners').select('user_id').eq('user_id', user.id).maybeSingle().timeout(const Duration(seconds: 10));
-      if (!mounted || client.auth.currentUser?.id != user.id) return;
-      if (membership == null) {
-        setState(() => _message = 'This account does not have owner access.');
-        return;
-      }
+      await client.checkOwner();
+      if (!mounted || !client.signedIn) return;
       final data = await WaitService.read();
-      if (!mounted || client.auth.currentUser?.id != user.id) return;
+      if (!mounted || !client.signedIn) return;
       final row = data['status'] as Map<String, dynamic>?;
       setState(() {
         _owner = true;
@@ -67,7 +62,7 @@ class _OwnerScreenState extends State<OwnerScreen> {
   Future<void> _signIn() async {
     setState(() { _busy = true; _message = null; });
     try {
-      await WaitService.client!.auth.signInWithPassword(email: _email.text.trim(), password: _password.text).timeout(const Duration(seconds: 15));
+      await WaitService.client!.signIn(_email.text.trim(), _password.text).timeout(const Duration(seconds: 15));
       _password.clear();
     } catch (_) {
       if (mounted) setState(() => _message = 'Sign-in failed. Check your email, password, and connection.');
@@ -82,10 +77,10 @@ class _OwnerScreenState extends State<OwnerScreen> {
     }
     setState(() { _busy = true; _message = null; });
     try {
-      final row = await WaitService.client!.from('shop_wait').update({
+      final row = await WaitService.client!.save({
         'status': status, 'wait_min': status == 'closed' ? null : _min,
         'wait_max': status == 'closed' ? null : _max, 'valid_minutes': _valid,
-      }).eq('id', 1).eq('version', _version!).select().maybeSingle().timeout(const Duration(seconds: 15));
+      }, _version!).timeout(const Duration(seconds: 15));
       if (!mounted) return;
       if (row == null) {
         await _loadOwner();
@@ -104,7 +99,7 @@ class _OwnerScreenState extends State<OwnerScreen> {
   @override
   Widget build(BuildContext context) {
     final client = WaitService.client;
-    final signedIn = client?.auth.currentUser != null;
+    final signedIn = client?.signedIn ?? false;
     return Scaffold(
       appBar: AppBar(title: const AppText('Owner controls')),
       body: Center(child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 600), child: ListView(padding: const EdgeInsets.all(20), children: [
@@ -143,7 +138,7 @@ class _OwnerScreenState extends State<OwnerScreen> {
         if (signedIn) ...[
           TextButton(onPressed: _busy ? null : _loadOwner, child: const AppText('Reload latest status')),
           TextButton(onPressed: _busy ? null : () async {
-            try { await client!.auth.signOut(scope: SignOutScope.local); }
+            try { await client!.signOut(); }
             catch (_) { if (mounted) setState(() => _message = 'Sign-out failed. Please retry.'); }
           }, child: const AppText('Sign out')),
         ],

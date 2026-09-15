@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:convert';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../core/localization/app_text.dart';
 import 'wait_service.dart';
 
@@ -18,7 +19,9 @@ class _WaitCardState extends State<WaitCard> with WidgetsBindingObserver {
   bool _connected = false;
   int _request = 0;
   Timer? _poll, _tick;
-  RealtimeChannel? _channel;
+  WebSocketChannel? _channel;
+  StreamSubscription<dynamic>? _events;
+  Timer? _reconnect;
 
   @override
   void initState() {
@@ -26,16 +29,34 @@ class _WaitCardState extends State<WaitCard> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     final client = WaitService.client;
     if (client == null) return;
-    _channel = client.channel('flutter-shop-wait-${identityHashCode(this)}').onPostgresChanges(event: PostgresChangeEvent.update, schema: 'public', table: 'shop_wait', callback: (_) => _refresh()).subscribe((status, error) {
-      if (status == RealtimeSubscribeStatus.subscribed) {
-        _refresh();
-      } else if (mounted) {
-        setState(() => _connected = false);
-      }
-    });
+    _connect();
     _refresh();
     _poll = Timer.periodic(const Duration(seconds: 30), (_) => _refresh());
     _tick = Timer.periodic(const Duration(seconds: 10), (_) { if (mounted) setState(() {}); });
+  }
+
+  void _connect() {
+    if (!mounted) return;
+    _channel = WaitService.client!.connect();
+    _channel!.ready.catchError((Object _) { if (mounted) setState(() => _connected = false); });
+    _events = _channel!.stream.listen((event) {
+      try {
+        ++_request;
+        _accept(jsonDecode(event as String) as Map<String, dynamic>);
+      } catch (_) { if (mounted) setState(() => _connected = false); }
+    }, onError: (_) { if (mounted) setState(() => _connected = false); }, onDone: () {
+      if (!mounted) return;
+      setState(() => _connected = false);
+      _reconnect = Timer(const Duration(seconds: 5), _connect);
+    });
+  }
+
+  void _accept(Map<String, dynamic> data) {
+    if (!mounted) return;
+    setState(() {
+      _snapshot = WaitSnapshot(data['status'] == null ? null : Map<String, dynamic>.from(data['status'] as Map), DateTime.parse(data['server_now'] as String), DateTime.now());
+      _connected = true;
+    });
   }
 
   Future<void> _refresh() async {
@@ -43,11 +64,7 @@ class _WaitCardState extends State<WaitCard> with WidgetsBindingObserver {
     try {
       final data = await WaitService.read();
       if (!mounted || request != _request) return;
-      final now = DateTime.now();
-      setState(() {
-        _snapshot = WaitSnapshot(data['status'] == null ? null : Map<String, dynamic>.from(data['status'] as Map), DateTime.parse(data['server_now'] as String), now);
-        _connected = true;
-      });
+      _accept(data);
     } catch (_) {
       if (mounted && request == _request) setState(() => _connected = false);
     }
@@ -62,7 +79,7 @@ class _WaitCardState extends State<WaitCard> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _poll?.cancel(); _tick?.cancel();
-    if (_channel != null) WaitService.client?.removeChannel(_channel!);
+    _reconnect?.cancel(); _events?.cancel(); _channel?.sink.close();
     super.dispose();
   }
 

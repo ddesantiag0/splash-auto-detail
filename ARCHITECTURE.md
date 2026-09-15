@@ -19,7 +19,7 @@ share a Flutter codebase across web, iOS, and Android.
 | Public website | Services, business details, gallery, local SEO, contact | Existing static site |
 | Customer app | Wax/polishing requests, quotes, vehicles, history, reminders | Foundation in `app/` |
 | Owner area | Publish current shop wait from Flutter | Implemented; backend/account activation pending |
-| Shop wait backend | Supabase Auth, owner membership, public wait, realtime | Schema and clients implemented; project selection pending |
+| Shop wait backend | FastAPI owner auth, MongoDB status/sessions, WebSockets | Backend and clients implemented; Atlas/AWS activation pending |
 
 ## Release boundaries
 
@@ -46,6 +46,6 @@ until all of the following are implemented and verified:
 
 ## Approved live shop wait
 
-Both owners approved a public, manually maintained shop-wait indicator. The HTML website and Flutter app read the same Supabase status; the Flutter `/owner` route manages it. Estimated minutes mean time **until service starts**, not completion time. Status expires unless refreshed. Customers need no account. Only administrator-enrolled owner accounts may update it, with equal permissions and optimistic concurrency checks.
+Both owners approved a public, manually maintained shop-wait indicator. The HTML website and Flutter app read the same FastAPI/MongoDB status; the Flutter `/owner` route manages it. Estimated minutes mean time **until service starts**, not completion time. Status expires unless refreshed. Customers need no account. Only administrator-enrolled owner accounts may update it, with equal permissions and optimistic concurrency checks.
 
 This narrowly scoped backend does not activate customer bookings, individual vehicle tracking, payments, or notifications. See [connection and activation checks](availability/README.md).

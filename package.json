@@ -11,11 +11,7 @@
     "node": ">=18"
   },
   "license": "SEE LICENSE IN LICENSE",
-  "dependencies": {
-    "@supabase/supabase-js": "2.116.0"
-  },
   "devDependencies": {
-    "@electric-sql/pglite": "0.3.14",
     "esbuild": "0.25.12"
   }
 }

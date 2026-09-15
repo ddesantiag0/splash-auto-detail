@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
 import { viewStatus } from './model.cjs';
 const target = document.getElementById('shop-wait');
 const config = window.splashAvailabilityConfig;
@@ -21,26 +20,37 @@ function render() {
   target.querySelector('[data-wait-updated]').textContent = state.updated ? `${t.updated}: ${new Date(state.updated).toLocaleTimeString(lang, { hour: 'numeric', minute: '2-digit' })}` : '';
 }
 render();
-if (target && config?.url && config?.publishableKey) {
-  const client = createClient(config.url, config.publishableKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+if (target && config?.apiUrl) {
+  const base = config.apiUrl.replace(/\/+$/, '');
+  const api = new URL(base);
+  if (api.protocol !== 'https:' && !(['localhost', '127.0.0.1'].includes(api.hostname) && api.protocol === 'http:')) throw new Error('HTTPS required');
+  function accept(data) {
+    const server = Date.parse(data.server_now);
+    if (!Number.isFinite(server)) throw new Error('Invalid server time');
+    offset = server - Date.now(); row = data.status; connected = true; render();
+  }
   async function refresh() {
     const current = ++request;
     try {
-      const { data, error } = await client.rpc('read_shop_wait').abortSignal(AbortSignal.timeout(10000));
+      const response = await fetch(`${base}/v1/wait`, {cache: 'no-store', signal: AbortSignal.timeout(10000)});
+      if (!response.ok) throw new Error('Unavailable');
+      const data = await response.json();
       if (current !== request) return;
-      if (error || !data) throw new Error('Unavailable');
-      const server = Date.parse(data.server_now);
-      if (!Number.isFinite(server)) throw new Error('Invalid server time');
-      offset = server - Date.now();
-      row = data.status;
-      connected = true;
+      accept(data);
     } catch { if (current === request) connected = false; }
     render();
   }
-  client.channel('public-shop-wait').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'shop_wait' }, refresh).subscribe(status => {
-    if (status === 'SUBSCRIBED') refresh();
-    if (['CHANNEL_ERROR', 'TIMED_OUT', 'CLOSED'].includes(status)) { connected = false; render(); }
-  });
+  let socket;
+  function connect() {
+    socket = new WebSocket(`${base.replace(/^http/, 'ws')}/v1/wait/stream`);
+    socket.onmessage = event => {
+      try { ++request; accept(JSON.parse(event.data)); }
+      catch { connected = false; render(); }
+    };
+    socket.onerror = () => { connected = false; render(); };
+    socket.onclose = () => { connected = false; render(); setTimeout(connect, 5000); };
+  }
+  connect();
   refresh();
   setInterval(refresh, 30000);
   setInterval(render, 10000);

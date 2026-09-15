@@ -466,7 +466,7 @@ No se debe prometer una hora exacta de terminación sin confirmación del person
 
 David informó que ambos dueños aprobaron esta función el 15 de septiembre de 2026. La primera versión permite a cualquiera de los dos publicar verde/disponible, amarillo/algo ocupado, rojo/muy ocupado o cerrado, con una espera estimada **hasta que comience el servicio** y una nota de que puede cambiar. Ambos tienen el mismo acceso protegido mediante una página de Flutter fácil de usar en el teléfono; los clientes ven actualizaciones en vivo y la hora de la última actualización.
 
-La implementación ofrece vigencia de 15/30/60 minutos por actualización (inicialmente 30). Si la información vence o no está disponible, se pide al cliente que llame. Aún faltan la organización del servicio de datos, las cuentas y la verificación en vivo. Esta aprobación no incluye el seguimiento individual de vehículos.
+La implementación ofrece vigencia de 15/30/60 minutos por actualización (inicialmente 30). Si la información vence o no está disponible, se pide al cliente que llame. Aún faltan el alojamiento de FastAPI/MongoDB, las cuentas y la verificación en vivo. Esta aprobación no incluye el seguimiento individual de vehículos.
 
 ### Otras ideas para el producto
 

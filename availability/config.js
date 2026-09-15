@@ -1,2 +1,2 @@
-// Public connection settings only. Never put a secret/service-role key here.
-window.splashAvailabilityConfig = { url: '', publishableKey: '' };
+// Public API origin only; never put MongoDB credentials in a frontend.
+window.splashAvailabilityConfig = { apiUrl: '' };
