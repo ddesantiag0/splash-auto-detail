@@ -6,7 +6,10 @@ import '../domain/booking_draft.dart';
 import '../domain/booking_validation.dart';
 
 class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key});
+  const BookingScreen({this.now, super.key});
+
+  /// Optional clock for deterministic date-picker tests.
+  final DateTime Function()? now;
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
@@ -32,12 +35,26 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   Future<void> _chooseDate(FormFieldState<DateTime> field) async {
-    final today = DateUtils.dateOnly(DateTime.now());
+    final today = DateUtils.dateOnly(widget.now?.call() ?? DateTime.now());
+    final lastDate = DateTime(today.year, today.month, today.day + 180);
+    var initialDate = _preferredDate;
+    if (initialDate == null ||
+        initialDate.isBefore(today) ||
+        initialDate.isAfter(lastDate)) {
+      initialDate = DateTime(today.year, today.month, today.day + 1);
+    }
+    // Keep the existing Sunday restriction without defaulting to a disabled day.
+    if (initialDate.weekday == DateTime.sunday) {
+      initialDate = DateTime(
+        initialDate.year, initialDate.month, initialDate.day + 1,
+      );
+    }
     final selected = await showDatePicker(
       context: context,
-      initialDate: _preferredDate ?? today.add(const Duration(days: 1)),
+      initialDate: initialDate,
+      currentDate: today,
       firstDate: today,
-      lastDate: today.add(const Duration(days: 180)),
+      lastDate: lastDate,
       selectableDayPredicate: (date) => date.weekday != DateTime.sunday,
     );
     if (!mounted || selected == null) return;
@@ -62,6 +79,7 @@ class _BookingScreenState extends State<BookingScreen> {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
+        scrollable: true,
         title: const Text('Review your request'),
         content: Text(
           '${draft.service.label}\n'
@@ -136,6 +154,7 @@ class _BookingScreenState extends State<BookingScreen> {
               title: '3. Pick a preferred date',
               child: FormField<DateTime>(
                 initialValue: _preferredDate,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => value == null
                     ? 'Choose a preferred appointment date.'
                     : null,
