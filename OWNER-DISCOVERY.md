@@ -5,6 +5,19 @@ application match the real business. Type answers directly below each question.
 Use `Needs decision` when an answer has not been finalized and `N/A` when a
 question does not apply.
 
+**Spanish version:** [`OWNER-DISCOVERY-ES.md`](OWNER-DISCOVERY-ES.md)
+
+## Two-owner review process
+
+- Each owner should answer in the language they are most comfortable using.
+- Put the owner's initials beside an answer when only one owner supplied it.
+- Operational answers should come from the person who manages that part of the
+  business day to day.
+- Product ideas do not override current business rules unless both owners agree
+  to change the process.
+- Record conflicting answers in **Section 14: Unresolved decisions**.
+- Both owners should complete the approval section before launch.
+
 ## Document information
 
 - **Completed by:** [TYPE ANSWER HERE]
@@ -422,6 +435,8 @@ Add anything that cannot be decided during the first review.
 - **I confirm the business information above is accurate:** [YES / NO]
 - **I approve the launch priorities above:** [YES / NO]
 - **Items that must be corrected before approval:** [TYPE ANSWER HERE]
-- **Owner name:** [TYPE ANSWER HERE]
-- **Approval date:** [TYPE ANSWER HERE]
+- **Owner 1 name:** [TYPE ANSWER HERE]
+- **Owner 1 approval and date:** [APPROVED / NOT APPROVED — DATE]
+- **Owner 2 name:** [TYPE ANSWER HERE]
+- **Owner 2 approval and date:** [APPROVED / NOT APPROVED — DATE]
 

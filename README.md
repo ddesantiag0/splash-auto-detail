@@ -9,7 +9,8 @@ staff workflows. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the boundary and
 release plan.
 
 Business requirements and owner approvals are recorded in
-[`OWNER-DISCOVERY.md`](OWNER-DISCOVERY.md).
+[`OWNER-DISCOVERY.md`](OWNER-DISCOVERY.md), with a plain-language Spanish
+version in [`OWNER-DISCOVERY-ES.md`](OWNER-DISCOVERY-ES.md).
 
 ## Implemented features
 
@@ -69,6 +70,7 @@ sitemap.xml        Canonical site URL
 SEO-*.md           Deployment and local-search guidance
 ARCHITECTURE.md     Hybrid product boundary and release plan
 OWNER-DISCOVERY.md  Editable owner questionnaire and decision record
+OWNER-DISCOVERY-ES.md Spanish owner questionnaire
 ```
 
 ## Content accuracy
