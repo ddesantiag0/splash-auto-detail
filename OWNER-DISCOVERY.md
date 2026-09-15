@@ -459,6 +459,12 @@ Possible customer-facing stages:
 
 Do not promise an exact completion time unless a staff member has confirmed it.
 
+### Approved: public shop wait indicator
+
+David reported approval from both owners on September 15, 2026. The first version lets either owner publish green/available, yellow/getting busy, red/very busy, or closed, with an estimated wait **until service starts** and a note that it may change. Both owners receive equal authenticated access through a phone-friendly Flutter page; customers see live updates and the last-updated time.
+
+Implementation offers a 15/30/60-minute expiry chosen for each update (initially 30). Expired or unavailable information asks customers to call. Backend organization, account setup, and live verification are still pending. This approval does not approve individual vehicle progress tracking.
+
 ### Additional product ideas
 
 Use this table as a shared idea backlog. An idea becomes an approved feature
