@@ -40,7 +40,11 @@ void main() {
     await tester.tap(find.text('OK'));
     await tester.pumpAndSettle();
     expect(find.text('Choose a preferred appointment date.'), findsNothing);
-    expect(find.text('9/21/2026'), findsOneWidget);
+    final localizations = MaterialLocalizations.of(
+      tester.element(find.byType(BookingScreen)),
+    );
+    expect(find.text(localizations.formatMediumDate(DateTime(2026, 9, 21))),
+        findsOneWidget);
     await openPicker(tester);
     expect(
       tester.widget<CalendarDatePicker>(find.byType(CalendarDatePicker)).initialDate,

@@ -9,6 +9,13 @@
 - The vehicle progress tracker remains an idea only. No prototype or implementation is approved.
 - Real customer photos are pending the owners' Drive folder.
 
+## Device preferences
+
+- Added automatic device/browser light and dark themes to the website and Flutter.
+- Added English/Spanish UI localization with regional preference matching and English fallback.
+- Added translated form validation, localized date picker controls and date formatting.
+- Both follow preference changes exposed while open. Details: [localization/README.md](localization/README.md).
+
 ## Completed in this review
 
 - Checked the live GitHub Pages desktop page and exercised the Interior gallery filter. It filtered the cards but did not expose selection state to assistive technology.

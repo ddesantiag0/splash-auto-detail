@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_text.dart';
+
 import '../../../core/widgets/responsive_page.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 20),
           const PageHeading('Professional care for your vehicle.'),
           const SizedBox(height: 12),
-          Text(
+          AppText(
             'Regular services are first come, first served. Wax and '
             'polishing jobs can be requested in advance and are confirmed '
             'by Splash Auto Detail.',
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
           FilledButton.icon(
             onPressed: onStartBooking,
             icon: const Icon(Icons.calendar_month_rounded),
-            label: const Text('Request wax or polishing'),
+            label: const AppText('Request wax or polishing'),
           ),
           const SizedBox(height: 32),
           const Wrap(
@@ -70,15 +71,15 @@ class _StatusPill extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: const Color(0x5522C55E)),
       ),
-      child: const Wrap(
+      child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 8,
         children: [
-          Icon(Icons.auto_awesome, color: AppColors.success, size: 18),
-          Text(
+          Icon(Icons.auto_awesome, color: Theme.of(context).colorScheme.primary, size: 18),
+          AppText(
             'Family-operated in Chula Vista',
             style: TextStyle(
-              color: AppColors.text,
+              color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -109,11 +110,11 @@ class _InfoCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color: AppColors.accent),
+              Icon(icon, color: Theme.of(context).colorScheme.primary),
               const SizedBox(height: 12),
-              Text(title, style: Theme.of(context).textTheme.titleLarge),
+              AppText(title, style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 6),
-              Text(body),
+              AppText(body),
             ],
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/localization/app_text.dart';
+
 import '../../account/presentation/account_screen.dart';
 import '../../booking/presentation/booking_screen.dart';
 import '../../home/presentation/home_screen.dart';
@@ -52,17 +54,17 @@ class _AppShellState extends State<AppShell> {
                         NavigationRailDestination(
                           icon: Icon(Icons.home_outlined),
                           selectedIcon: Icon(Icons.home_rounded),
-                          label: Text('Home'),
+                          label: AppText('Home'),
                         ),
                         NavigationRailDestination(
                           icon: Icon(Icons.calendar_month_outlined),
                           selectedIcon: Icon(Icons.calendar_month_rounded),
-                          label: Text('Book'),
+                          label: AppText('Book'),
                         ),
                         NavigationRailDestination(
                           icon: Icon(Icons.person_outline),
                           selectedIcon: Icon(Icons.person_rounded),
-                          label: Text('Account'),
+                          label: AppText('Account'),
                         ),
                       ],
                     ),
@@ -76,21 +78,21 @@ class _AppShellState extends State<AppShell> {
               : NavigationBar(
                   selectedIndex: _selectedIndex,
                   onDestinationSelected: _select,
-                  destinations: const [
+                  destinations: [
                     NavigationDestination(
-                      icon: Icon(Icons.home_outlined),
-                      selectedIcon: Icon(Icons.home_rounded),
-                      label: 'Home',
+                      icon: const Icon(Icons.home_outlined),
+                      selectedIcon: const Icon(Icons.home_rounded),
+                      label: tr(context, 'Home'),
                     ),
                     NavigationDestination(
-                      icon: Icon(Icons.calendar_month_outlined),
-                      selectedIcon: Icon(Icons.calendar_month_rounded),
-                      label: 'Book',
+                      icon: const Icon(Icons.calendar_month_outlined),
+                      selectedIcon: const Icon(Icons.calendar_month_rounded),
+                      label: tr(context, 'Book'),
                     ),
                     NavigationDestination(
-                      icon: Icon(Icons.person_outline),
-                      selectedIcon: Icon(Icons.person_rounded),
-                      label: 'Account',
+                      icon: const Icon(Icons.person_outline),
+                      selectedIcon: const Icon(Icons.person_rounded),
+                      label: tr(context, 'Account'),
                     ),
                   ],
                 ),

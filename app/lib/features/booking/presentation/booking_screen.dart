@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_text.dart';
+
 import '../../../core/widgets/responsive_page.dart';
 import '../domain/booking_draft.dart';
 import '../domain/booking_validation.dart';
@@ -80,25 +81,26 @@ class _BookingScreenState extends State<BookingScreen> {
       context: context,
       builder: (context) => AlertDialog(
         scrollable: true,
-        title: const Text('Review your request'),
+        title: const AppText('Review your request'),
         content: Text(
-          '${draft.service.label}\n'
+          '${tr(context, draft.service.label)}\n'
           '${draft.vehicle}\n'
           '${_formatDate(draft.preferredDate)}\n\n'
-          'No request has been sent yet. Secure backend submission and '
-          'business confirmation will be connected in the next phase.',
+          '${tr(context, 'No request has been sent yet. Secure backend submission and '
+              'business confirmation will be connected in the next phase.')}',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Keep editing'),
+            child: const AppText('Keep editing'),
           ),
         ],
       ),
     );
   }
 
-  String _formatDate(DateTime date) => '${date.month}/${date.day}/${date.year}';
+  String _formatDate(DateTime date) =>
+      MaterialLocalizations.of(context).formatMediumDate(date);
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +113,7 @@ class _BookingScreenState extends State<BookingScreen> {
           children: [
             const PageHeading('Request wax or polishing'),
             const SizedBox(height: 8),
-            Text(
+            AppText(
               'Regular services are first come, first served. Use this '
               'form only for wax or polishing work. Splash Auto Detail '
               'will confirm the request before an appointment is set.',
@@ -126,7 +128,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 children: DetailService.values
                     .map(
                       (service) => ChoiceChip(
-                        label: Text(service.label),
+                        label: AppText(service.label),
                         selected: _service == service,
                         onSelected: (_) => setState(() => _service = service),
                       ),
@@ -140,12 +142,12 @@ class _BookingScreenState extends State<BookingScreen> {
               child: TextFormField(
                 controller: _vehicleController,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  labelText: 'Year, make, and model',
-                  hintText: 'Example: 2022 Tesla Model 3',
+                decoration: InputDecoration(
+                  labelText: tr(context, 'Year, make, and model'),
+                  hintText: tr(context, 'Example: 2022 Tesla Model 3'),
                 ),
                 validator: (value) => !BookingValidation.hasRequiredText(value)
-                    ? 'Enter the vehicle year, make, and model.'
+                    ? tr(context, 'Enter the vehicle year, make, and model.')
                     : null,
               ),
             ),
@@ -156,7 +158,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 initialValue: _preferredDate,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => value == null
-                    ? 'Choose a preferred appointment date.'
+                    ? tr(context, 'Choose a preferred appointment date.')
                     : null,
                 builder: (field) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +166,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     OutlinedButton.icon(
                       onPressed: () => _chooseDate(field),
                       icon: const Icon(Icons.event_outlined),
-                      label: Text(
+                      label: AppText(
                         _preferredDate == null
                             ? 'Choose a date'
                             : _formatDate(_preferredDate!),
@@ -174,7 +176,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       const SizedBox(height: 8),
                       Semantics(
                         liveRegion: true,
-                        child: Text(
+                        child: AppText(
                           field.errorText!,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 color: Theme.of(context).colorScheme.error,
@@ -196,10 +198,10 @@ class _BookingScreenState extends State<BookingScreen> {
                       controller: _nameController,
                       textInputAction: TextInputAction.next,
                       autofillHints: const [AutofillHints.name],
-                      decoration: const InputDecoration(labelText: 'Full name'),
+                      decoration: InputDecoration(labelText: tr(context, 'Full name')),
                       validator: (value) =>
                           !BookingValidation.hasRequiredText(value)
-                              ? 'Enter your name.'
+                              ? tr(context, 'Enter your name.')
                               : null,
                     ),
                     const SizedBox(height: 12),
@@ -208,20 +210,20 @@ class _BookingScreenState extends State<BookingScreen> {
                       keyboardType: TextInputType.phone,
                       autofillHints: const [AutofillHints.telephoneNumber],
                       decoration:
-                          const InputDecoration(labelText: 'Phone number'),
+                          InputDecoration(labelText: tr(context, 'Phone number')),
                       validator: (value) =>
                           !BookingValidation.hasValidPhone(value)
-                              ? 'Enter a valid 10-digit phone number.'
+                              ? tr(context, 'Enter a valid 10-digit phone number.')
                               : null,
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _notesController,
                       maxLines: 4,
-                      decoration: const InputDecoration(
-                        labelText: 'Notes (optional)',
+                      decoration: InputDecoration(
+                        labelText: tr(context, 'Notes (optional)'),
                         hintText:
-                            'Tell us about stains, paint condition, or concerns.',
+                            tr(context, 'Tell us about stains, paint condition, or concerns.'),
                       ),
                     ),
                   ],
@@ -234,21 +236,22 @@ class _BookingScreenState extends State<BookingScreen> {
               child: FilledButton.icon(
                 onPressed: _reviewRequest,
                 icon: const Icon(Icons.fact_check_outlined),
-                label: const Text('Review request'),
+                label: const AppText('Review request'),
               ),
             ),
             const SizedBox(height: 12),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.lock_outline, size: 16, color: AppColors.textDim),
-                SizedBox(width: 6),
+                Icon(Icons.lock_outline, size: 16,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+                const SizedBox(width: 6),
                 Flexible(
-                  child: Text(
+                  child: AppText(
                     'Submission is intentionally disabled until the backend '
                     'is connected.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColors.textDim),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                 ),
               ],

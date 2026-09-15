@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../localization/app_text.dart';
+
 /// Shared page layout that keeps content readable across phone, tablet, and
 /// desktop widths.
 class ResponsivePage extends StatelessWidget {
@@ -49,7 +51,7 @@ class PageHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Semantics(
       header: true,
-      child: Text(text, style: Theme.of(context).textTheme.headlineLarge),
+      child: AppText(text, style: Theme.of(context).textTheme.headlineLarge),
     );
   }
 }
@@ -75,7 +77,7 @@ class SectionCard extends StatelessWidget {
           children: [
             Semantics(
               header: true,
-              child: Text(title, style: Theme.of(context).textTheme.titleLarge),
+              child: AppText(title, style: Theme.of(context).textTheme.titleLarge),
             ),
             const SizedBox(height: 16),
             child,
