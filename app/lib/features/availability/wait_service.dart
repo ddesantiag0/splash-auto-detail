@@ -8,18 +8,22 @@ class WaitApi {
   final String baseUrl;
   final http.Client _http;
   String? _token;
+  int _authRevision = 0;
   bool get signedIn => _token != null;
   final authChanges = StreamController<void>.broadcast();
 
   Future<Map<String, dynamic>> request(String method, String path, [Map<String, dynamic>? body]) async {
+    final revision = _authRevision;
+    final token = _token;
     final request = http.Request(method, Uri.parse('$baseUrl$path'));
     request.headers['Content-Type'] = 'application/json';
-    if (_token != null) request.headers['Authorization'] = 'Bearer $_token';
+    if (token != null) request.headers['Authorization'] = 'Bearer $token';
     if (body != null) request.body = jsonEncode(body);
     final response = await (() async {
       return http.Response.fromStream(await _http.send(request));
     })().timeout(const Duration(seconds: 15));
-    if (response.statusCode == 401 && _token != null) {
+    if (response.statusCode == 401 && token != null && revision == _authRevision) {
+      ++_authRevision;
       _token = null;
       authChanges.add(null);
     }
@@ -28,13 +32,19 @@ class WaitApi {
   }
 
   Future<void> signIn(String email, String password) async {
+    final revision = ++_authRevision;
     final result = await request('POST', '/v1/auth/login', {'email': email, 'password': password});
+    if (revision != _authRevision) return;
     _token = result['access_token'] as String;
     authChanges.add(null);
   }
   Future<void> signOut() async {
-    try { await request('POST', '/v1/auth/logout'); }
-    finally { _token = null; authChanges.add(null); }
+    // Capture the existing token for revocation, then sign out locally at once.
+    final pending = request('POST', '/v1/auth/logout');
+    ++_authRevision;
+    _token = null;
+    authChanges.add(null);
+    await pending;
   }
   Future<void> checkOwner() async { await request('GET', '/v1/auth/me'); }
   Future<Map<String, dynamic>?> save(Map<String, dynamic> values, int version) async {
@@ -45,7 +55,7 @@ class WaitApi {
     final uri = Uri.parse('$baseUrl/v1/wait/stream');
     return WebSocketChannel.connect(uri.replace(scheme: uri.scheme == 'https' ? 'wss' : 'ws'));
   }
-  void close() { _http.close(); authChanges.close(); }
+  void close() { ++_authRevision; _token = null; _http.close(); authChanges.close(); }
 }
 
 class ApiFailure implements Exception {

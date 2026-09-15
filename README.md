@@ -14,6 +14,11 @@ Business requirements and owner approvals are recorded in
 [`OWNER-DISCOVERY.md`](OWNER-DISCOVERY.md), with a plain-language Spanish
 version in [`OWNER-DISCOVERY-ES.md`](OWNER-DISCOVERY-ES.md).
 
+The [development workflow](docs/DEVELOPMENT-WORKFLOW.md) explains the repository
+boundaries, review process, and remaining launch work. The approved shop-wait
+feature uses the [FastAPI/MongoDB backend](backend/README.md); cloud setup and
+owner account enrollment are still pending.
+
 ## Implemented features
 
 - Mobile-first HTML and CSS with a responsive navigation menu
@@ -46,8 +51,9 @@ npm test
 
 The tests confirm that page-level local assets exist, internal navigation targets resolve, and production markup does not contain known placeholder domains or missing photo references.
 
-Pull requests also run website checks plus Flutter analysis, tests, and a
-release web build through GitHub Actions.
+Pull requests also run Flutter analysis, tests, and a release web build,
+backend tests against MongoDB (including real HTTP/WebSocket connections across
+API processes), and a Docker image build through GitHub Actions.
 
 ## Deployment checklist
 
@@ -66,6 +72,11 @@ index.html         Page content and structured data
 styles.css         Responsive visual system
 script.js          Navigation, hours, gallery, and accessibility behavior
 app/               Flutter/Dart customer application
+backend/           FastAPI service, owner authentication, MongoDB, Docker
+availability/      Public shop-wait client and connection configuration
+localization/      Shared Spanish catalog for website and Flutter
+scripts/           Translation generation and review-site packaging
+docs/              Development workflow and organization plan
 test/              Static integrity checks
 robots.txt         Search crawler policy
 sitemap.xml        Canonical site URL

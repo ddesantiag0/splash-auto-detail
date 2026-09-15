@@ -6,8 +6,8 @@ Splash Auto uses a hybrid web and application architecture:
 
 - The repository root remains the public, SEO-focused HTML website.
 - `app/` contains the Flutter/Dart customer and operations application.
-- Backend services will be introduced behind explicit APIs rather than embedded
-  into either client.
+- `backend/` contains the FastAPI service, with MongoDB persistence and explicit
+  HTTP/WebSocket APIs shared by both clients. Cloud activation is pending.
 
 This protects local-search visibility while allowing the interactive product to
 share a Flutter codebase across web, iOS, and Android.
@@ -17,7 +17,7 @@ share a Flutter codebase across web, iOS, and Android.
 | Surface | Responsibility | Current state |
 | --- | --- | --- |
 | Public website | Services, business details, gallery, local SEO, contact | Existing static site |
-| Customer app | Wax/polishing requests, quotes, vehicles, history, reminders | Foundation in `app/` |
+| Customer app | Local wax/polishing request draft and public shop wait | Foundation in `app/`; no request submission or customer accounts |
 | Owner area | Publish current shop wait from Flutter | Implemented; backend/account activation pending |
 | Shop wait backend | FastAPI owner auth, MongoDB status/sessions, WebSockets | Backend and clients implemented; Atlas/AWS activation pending |
 
@@ -36,13 +36,19 @@ until all of the following are implemented and verified:
 
 ## Recommended delivery order
 
-1. Establish the Flutter shell and design system.
-2. Confirm real services, intake fields, and scheduling rules with the business.
-3. Select and implement the backend contract.
-4. Complete the customer appointment-request flow.
-5. Build the staff request queue and confirmation workflow.
-6. Add accounts, saved vehicles, history, reminders, and payments only when the
-   underlying business process is ready.
+1. Maintain the existing Flutter shell, website, backend contract, and CI checks.
+2. Confirm dedicated Splash hosting/account details and activate the approved
+   shop-wait backend with both owners' separate logins.
+3. Verify the configured customer and owner screens on real devices, including
+   English/Spanish, light/dark mode, reconnects, and expired estimates.
+4. Complete owner discovery before extending the appointment-request draft into
+   real submission, storage, and staff confirmation.
+5. Add customer accounts, saved vehicles, history, reminders, or payments only
+   after the corresponding business requirements are approved.
+
+See [development workflow](docs/DEVELOPMENT-WORKFLOW.md) for repository ownership,
+review gates, and the phased organization plan. Splash currently represents one
+shop with two equal owners; a multi-business organization model is not implied.
 
 ## Approved live shop wait
 
