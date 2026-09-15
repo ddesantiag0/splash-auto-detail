@@ -2,6 +2,12 @@
 
 A responsive static website for Splash Auto Detail, a family-operated auto detailing business in Chula Vista, California.
 
+The repository now also contains a Flutter/Dart application foundation in
+[`app/`](app/). The public site remains semantic HTML for local SEO, while the
+Flutter application will own appointment requests, customer accounts, and
+staff workflows. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the boundary and
+release plan.
+
 ## Implemented features
 
 - Mobile-first HTML and CSS with a responsive navigation menu
@@ -34,6 +40,9 @@ npm test
 
 The tests confirm that page-level local assets exist, internal navigation targets resolve, and production markup does not contain known placeholder domains or missing photo references.
 
+Pull requests also run website checks plus Flutter analysis, tests, and a
+release web build through GitHub Actions.
+
 ## Deployment checklist
 
 1. Confirm the phone number, street address, hours, services, and domain with the business owner.
@@ -50,10 +59,12 @@ See [SEO-CHECKLIST.md](SEO-CHECKLIST.md) and [SEO-GUIDE.md](SEO-GUIDE.md) for op
 index.html         Page content and structured data
 styles.css         Responsive visual system
 script.js          Navigation, hours, gallery, and accessibility behavior
+app/               Flutter/Dart customer application
 test/              Static integrity checks
 robots.txt         Search crawler policy
 sitemap.xml        Canonical site URL
 SEO-*.md           Deployment and local-search guidance
+ARCHITECTURE.md     Hybrid product boundary and release plan
 ```
 
 ## Content accuracy

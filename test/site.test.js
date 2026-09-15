@@ -29,3 +29,18 @@ test("structured business data is valid JSON", () => {
   assert.ok(blocks.length > 0, "Expected LocalBusiness structured data");
   for (const block of blocks) assert.doesNotThrow(() => JSON.parse(block[1]));
 });
+
+test("Flutter application foundation is present", () => {
+  const requiredFiles = [
+    "app/pubspec.yaml",
+    "app/analysis_options.yaml",
+    "app/lib/main.dart",
+    "app/lib/app/splash_auto_app.dart",
+    "app/test/widget_test.dart",
+    "app/web/index.html",
+  ];
+
+  for (const file of requiredFiles) {
+    assert.ok(fs.existsSync(path.join(root, file)), `Missing Flutter app file: ${file}`);
+  }
+});
