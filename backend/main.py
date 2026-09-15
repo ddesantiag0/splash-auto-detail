@@ -164,7 +164,9 @@ def create_app(database=None, origins=None):
                 data = await run_in_threadpool(snapshot, socket.app.state.db)
                 await socket.send_json(jsonable_encoder(data))
                 try:
-                    await asyncio.wait_for(socket.receive_text(), timeout=2)
+                    message = await asyncio.wait_for(socket.receive(), timeout=2)
+                    if message['type'] == 'websocket.disconnect':
+                        return
                     await socket.close(code=1008)
                     return
                 except asyncio.TimeoutError:

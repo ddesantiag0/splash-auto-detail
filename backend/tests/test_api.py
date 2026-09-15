@@ -92,3 +92,14 @@ def test_cors_and_websocket_origin(setup):
     with pytest.raises(WebSocketDisconnect):
         with http.websocket_connect('/v1/wait/stream', headers={'origin': 'https://evil.test'}):
             pass
+
+@pytest.mark.parametrize('payload', ['unexpected', b'unexpected'])
+def test_read_only_stream_rejects_client_messages_cleanly(setup, payload):
+    http, _ = setup
+    with http.websocket_connect('/v1/wait/stream') as ws:
+        ws.receive_json()
+        if isinstance(payload, bytes):
+            ws.send_bytes(payload)
+        else:
+            ws.send_text(payload)
+        assert ws.receive() == {'type': 'websocket.close', 'code': 1008, 'reason': ''}

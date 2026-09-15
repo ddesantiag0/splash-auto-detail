@@ -68,3 +68,11 @@ PYTHONPATH=. .venv/bin/pytest tests -q
 ```
 
 Local tests default to mongomock. Set `TEST_MONGODB_URI` to a disposable Mongo instance to test actual database behavior. CI uses MongoDB 8 and builds the Docker image. Test databases have random names and are deleted after tests. Never point tests at a business database account.
+
+`tests/test_live_workflow.py` additionally starts two independent Uvicorn processes on loopback and uses real HTTP/WebSocket connections. It checks simultaneous owner edits, conflict recovery, customer updates across processes, API restart persistence, logout, expired sessions, and expired status timestamps. It runs automatically in CI and skips locally when `TEST_MONGODB_URI` is absent:
+
+```bash
+TEST_MONGODB_URI=mongodb://127.0.0.1:27017 PYTHONPATH=. .venv/bin/pytest tests/test_live_workflow.py -q
+```
+
+The test creates synthetic owners only in its randomly named test database and removes that database afterward. Status expiry is forced in the test database; customer rendering of expired estimates has separate JavaScript and Flutter tests. This network test does not replace a phone/browser usability check against the configured review site.
