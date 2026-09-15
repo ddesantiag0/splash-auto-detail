@@ -10,7 +10,7 @@
   --panel-hover: #1a2437;
   --text: #e9eefc;
   --text-muted: #a7b3d6;
-  --text-dim: #6b7b9a;
+  --text-dim: #a7b3d6;
   --accent: #4da3ff;
   --accent-bright: #67e8f9;
   --accent-dim: #3b82c8;
@@ -110,6 +110,12 @@ h3 {
   margin-bottom: var(--spacing-lg);
 }
 
+.service-policy {
+  margin: calc(var(--spacing-sm) * -1) 0 var(--spacing-lg);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
 .section-description {
   font-size: 1.063rem;
   line-height: 1.7;
@@ -182,31 +188,17 @@ h3 {
   opacity: 0.8;
 }
 
-.brand-mark {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  font-size: 1.25rem;
+.brand-logo {
+  width: 210px;
+  max-width: 100%;
+  height: auto;
+  background: transparent;
 }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.brand-text strong {
-  font-size: 1.063rem;
-  font-weight: 700;
-}
-
-.brand-text span {
-  color: var(--text-muted);
-  font-size: 0.875rem;
+@media (max-width: 480px) {
+  .site-header .brand-logo {
+    width: 180px;
+  }
 }
 
 .nav-links {
@@ -560,7 +552,7 @@ h3 {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
 }
@@ -759,7 +751,7 @@ h3 {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
 }
@@ -823,7 +815,7 @@ h3 {
   font-size: 1.063rem;
   color: var(--text);
   flex: 1;
-  min-width: 250px;
+  min-width: 0;
 }
 
 /* ===================================
@@ -899,7 +891,7 @@ h3 {
 }
 
 .hours-card.closed {
-  opacity: 0.6;
+  border-style: dashed;
 }
 
 .hours-day {
@@ -1198,7 +1190,7 @@ h3 {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   :root {
     --spacing-lg: 24px;
     --spacing-xl: 36px;
@@ -1354,4 +1346,65 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--accent-bright);
   outline-offset: 2px;
+}
+
+/* Keep skip navigation visible above the sticky header when focused. */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 12px 16px;
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--accent-bright);
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Pending photos are informational cards, not clickable image previews. */
+.gallery-item:has(.gallery-placeholder) {
+  cursor: default;
+}
+
+.gallery-item:has(.gallery-placeholder) .gallery-overlay {
+  transform: none;
+}
+
+/* Follow the browser/OS preference automatically, including changes while open. */
+:root { color-scheme: dark; }
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --bg: #f4f7fc;
+    --bg-subtle: #eaf0f8;
+    --panel: #ffffff;
+    --panel-hover: #edf3fb;
+    --text: #12243d;
+    --text-muted: #425775;
+    --text-dim: #425775;
+    --accent: #0868b8;
+    --accent-bright: #006b83;
+    --border: rgba(18, 36, 61, 0.18);
+    --border-subtle: rgba(18, 36, 61, 0.10);
+    --shadow-md: 0 8px 24px rgba(18, 36, 61, 0.08);
+    --shadow-lg: 0 16px 40px rgba(18, 36, 61, 0.10);
+  }
+  .site-header { background: rgba(244, 247, 252, 0.96); }
+  .hero-bg { background: none; }
+  .card, .hero-card, .feature-card, .hours-card,
+  .contact-card, .location-card, .badge { background: var(--panel); }
+  .card:hover, .feature-card:hover, .hours-card:hover,
+  .badge:hover { background: var(--panel-hover); border-color: var(--border); }
+  .nav-toggle, .btn-secondary, .filter-btn:not(.active) { background: var(--bg-subtle); }
+  .status-text { color: #137438; }
+  .status-badge.closed .status-text { color: #b42318; }
+  /* Photo placeholders and the lightbox keep their dark photographic backdrop. */
+  .gallery-overlay, .lightbox-close, .lightbox-nav { color: #e9eefc; }
+  .gallery-overlay p { color: #c2cde5; }
+  .footer { background: var(--bg-subtle); }
 }

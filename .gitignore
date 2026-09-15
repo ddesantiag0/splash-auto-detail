@@ -1,0 +1,10 @@
+review-dist/
+node_modules/
+
+supabase/.temp/
+
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+.env.*

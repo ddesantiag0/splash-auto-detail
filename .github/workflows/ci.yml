@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  website:
+    name: Website checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:availability
+      - run: git diff --exit-code -- availability/customer.bundle.js
+      - run: npm test
+
+  flutter:
+    name: Flutter checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flutter-dependency-lock
+          path: app/pubspec.lock
+      - run: flutter analyze
+      - run: flutter test
+      - run: flutter build web --release --base-href /app/ --no-web-resources-cdn
+      - name: Package review site
+        run: python3 ../scripts/package-review.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: splash-review
+          path: review-dist/
+          if-no-files-found: error
+
+  backend:
+    name: FastAPI and MongoDB checks
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:8.0
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements-dev.txt
+      - run: pip install -r backend/requirements-dev.txt
+      - run: PYTHONPATH=backend pytest backend/tests -q
+        env:
+          TEST_MONGODB_URI: mongodb://localhost:27017
+      - run: docker build -t splash-api:ci backend

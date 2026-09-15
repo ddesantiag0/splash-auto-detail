@@ -1,0 +1,10 @@
+.shop-wait { margin:24px 0; padding:20px; border:1px solid currentColor; border-radius:16px; max-width:560px; }
+.shop-wait h2 { font-size:1rem; margin:0 0 10px; }
+.shop-wait strong { display:flex; align-items:center; gap:10px; font-size:1.25rem; }
+.shop-wait strong::before { content:''; width:14px; height:14px; border-radius:50%; background:#808080; flex:none; }
+.shop-wait[data-status=available] strong::before { background:#16a34a; }
+.shop-wait[data-status=moderate] strong::before { background:#eab308; }
+.shop-wait[data-status=busy] strong::before { background:#ef4444; }
+.shop-wait p { margin:8px 0; font-size:1rem; }
+.shop-wait a { text-decoration:underline; color:inherit; }
+.shop-wait [data-wait-estimate] { font-size:1.5rem; font-weight:700; }

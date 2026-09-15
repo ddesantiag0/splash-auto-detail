@@ -1,0 +1,22 @@
+# Local development only. Atlas replaces this Mongo service for production.
+services:
+  api:
+    build: .
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DATABASE: splash
+      ALLOWED_ORIGINS: http://localhost:5500,http://127.0.0.1:5500,http://localhost:8080
+    depends_on:
+      mongo:
+        condition: service_healthy
+  mongo:
+    image: mongo:8.0
+    volumes: ["mongo-data:/data/db"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  mongo-data:

@@ -2,6 +2,27 @@
 
 A responsive static website for Splash Auto Detail, a family-operated auto detailing business in Chula Vista, California.
 
+The repository now also contains a Flutter/Dart application foundation in
+[`app/`](app/). The public site remains semantic HTML for local SEO, while the
+Flutter application will own appointment requests, customer accounts, and
+staff workflows for services that require scheduling. Regular service remains
+first come, first served; wax and polishing work is handled by appointment
+request. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the boundary and release
+plan.
+
+Business requirements and owner approvals are recorded in
+[`OWNER-DISCOVERY.md`](OWNER-DISCOVERY.md), with a plain-language Spanish
+version in [`OWNER-DISCOVERY-ES.md`](OWNER-DISCOVERY-ES.md).
+
+The [development workflow](docs/DEVELOPMENT-WORKFLOW.md) explains the repository
+boundaries, review process, and remaining launch work. The approved shop-wait
+feature uses the [FastAPI/MongoDB backend](backend/README.md); cloud setup and
+owner account enrollment are still pending.
+
+Use the [backend activation guide](docs/BACKEND-ACTIVATION.md) for the staging
+release setup and the [English/Spanish owner guide](docs/OWNER-WAIT-GUIDE.md)
+once access is connected.
+
 ## Implemented features
 
 - Mobile-first HTML and CSS with a responsive navigation menu
@@ -34,6 +55,10 @@ npm test
 
 The tests confirm that page-level local assets exist, internal navigation targets resolve, and production markup does not contain known placeholder domains or missing photo references.
 
+Pull requests also run Flutter analysis, tests, and a release web build,
+backend tests against MongoDB (including real HTTP/WebSocket connections across
+API processes), and a Docker image build through GitHub Actions.
+
 ## Deployment checklist
 
 1. Confirm the phone number, street address, hours, services, and domain with the business owner.
@@ -50,10 +75,19 @@ See [SEO-CHECKLIST.md](SEO-CHECKLIST.md) and [SEO-GUIDE.md](SEO-GUIDE.md) for op
 index.html         Page content and structured data
 styles.css         Responsive visual system
 script.js          Navigation, hours, gallery, and accessibility behavior
+app/               Flutter/Dart customer application
+backend/           FastAPI service, owner authentication, MongoDB, Docker
+availability/      Public shop-wait client and connection configuration
+localization/      Shared Spanish catalog for website and Flutter
+scripts/           Translation generation and review-site packaging
+docs/              Development workflow and organization plan
 test/              Static integrity checks
 robots.txt         Search crawler policy
 sitemap.xml        Canonical site URL
 SEO-*.md           Deployment and local-search guidance
+ARCHITECTURE.md     Hybrid product boundary and release plan
+OWNER-DISCOVERY.md  Editable owner questionnaire and decision record
+OWNER-DISCOVERY-ES.md Spanish owner questionnaire
 ```
 
 ## Content accuracy

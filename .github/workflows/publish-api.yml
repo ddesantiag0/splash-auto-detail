@@ -1,0 +1,141 @@
+name: Publish API image
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Architecture of the staging server
+        type: choice
+        default: linux/amd64
+        options:
+          - linux/amd64
+          - linux/arm64
+
+permissions: {}
+
+concurrency:
+  group: publish-api-staging
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Test selected revision
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    services:
+      mongo:
+        image: mongo:8.0
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements-dev.txt
+      - run: pip install -r backend/requirements-dev.txt
+      - run: PYTHONPATH=backend pytest backend/tests -q
+        env:
+          TEST_MONGODB_URI: mongodb://localhost:27017
+
+  publish:
+    name: Build and publish staging image
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: staging
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+      ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      TARGET_PLATFORM: ${{ inputs.platform }}
+    steps:
+      - name: Validate staging configuration before authentication
+        id: config
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          def require(name, pattern):
+              value = os.environ.get(name, '')
+              if not re.fullmatch(pattern, value):
+                  raise SystemExit(f'{name} is missing or malformed; configure the staging environment.')
+              return value
+
+          role = require('AWS_ROLE_ARN', r'arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9_+=,.@/-]+')
+          region = require('AWS_REGION', r'[a-z]{2}-[a-z]+-[0-9]+')
+          registry = require('ECR_REGISTRY', r'[0-9]{12}\.dkr\.ecr\.[a-z]{2}-[a-z]+-[0-9]+\.amazonaws\.com')
+          repo = require('ECR_REPOSITORY', r'[a-z0-9]+(?:[._/-][a-z0-9]+)*')
+          if len(repo) < 2 or len(repo) > 256:
+              raise SystemExit('ECR_REPOSITORY must have 2–256 characters.')
+          account = role.split(':')[4]
+          if registry != f'{account}.dkr.ecr.{region}.amazonaws.com':
+              raise SystemExit('The role, registry, and region must belong to the same staging account and region.')
+          require('TARGET_PLATFORM', r'linux/(?:amd64|arm64)')
+          sha = require('GITHUB_SHA', r'[0-9a-f]{40}')
+          with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
+              output.write(f'account={account}\nimage={registry}/{repo}:{sha}\n')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Enable ARM64 emulation
+        if: inputs.platform == 'linux/arm64'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the image before obtaining AWS credentials
+        env:
+          IMAGE: ${{ steps.config.outputs.image }}
+        run: docker buildx build --platform "$TARGET_PLATFORM" --tag "$IMAGE" --load backend
+      - name: Obtain temporary staging credentials through OIDC
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          allowed-account-ids: ${{ steps.config.outputs.account }}
+          role-session-name: splash-api-publish
+      - name: Sign in to the staging ECR registry
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registries: ${{ steps.config.outputs.account }}
+      - name: Push the tested revision and record its immutable image reference
+        env:
+          IMAGE: ${{ steps.config.outputs.image }}
+        run: |
+          docker push "$IMAGE"
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import subprocess
+          from pathlib import Path
+
+          image = os.environ['IMAGE']
+          metadata = json.loads(subprocess.check_output(['docker', 'image', 'inspect', image]))[0]
+          repository = image.rsplit(':', 1)[0]
+          matches = [ref for ref in metadata.get('RepoDigests', [])
+                     if re.fullmatch(re.escape(repository) + r'@sha256:[0-9a-f]{64}', ref)]
+          if len(matches) != 1:
+              raise SystemExit('Push completed but a unique immutable image digest could not be verified.')
+          with Path(os.environ['GITHUB_STEP_SUMMARY']).open('a') as summary:
+              summary.write(f'Published `{image}`\n\n')
+              summary.write(f'Platform: `{os.environ["TARGET_PLATFORM"]}`\n\n')
+              summary.write(f'Immutable image reference: `{matches[0]}`\n\n')
+              summary.write('The image was published only. No server was deployed or restarted.\n')
+          PY
