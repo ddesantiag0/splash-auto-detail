@@ -19,7 +19,10 @@ void main() {
 
     await tester.tap(find.text('Request wax or polishing'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Review request'));
+    final reviewButton = find.text('Review request');
+    await tester.ensureVisible(reviewButton);
+    await tester.pumpAndSettle();
+    await tester.tap(reviewButton);
     await tester.pump();
 
     expect(

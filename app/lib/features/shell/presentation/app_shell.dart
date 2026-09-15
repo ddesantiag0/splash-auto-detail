@@ -31,13 +31,11 @@ class _AppShellState extends State<AppShell> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.directions_car_filled_rounded),
-                SizedBox(width: 10),
-                Text('Splash Auto Detail'),
-              ],
+            leading: const Icon(Icons.directions_car_filled_rounded),
+            title: const Text(
+              'Splash Auto Detail',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             centerTitle: false,
           ),
