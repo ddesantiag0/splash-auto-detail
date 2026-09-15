@@ -26,5 +26,17 @@ void main() {
 
       expect(draft.isComplete, isFalse);
     });
+
+    test('is incomplete when required text fields contain only spaces', () {
+      final draft = BookingDraft(
+        service: DetailService.wax,
+        vehicle: '   ',
+        customerName: '   ',
+        phone: '(619) 555-0123',
+        preferredDate: DateTime(2026, 9, 20),
+      );
+
+      expect(draft.isComplete, isFalse);
+    });
   });
 }
