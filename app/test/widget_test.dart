@@ -7,10 +7,10 @@ void main() {
     await tester.pumpWidget(const SplashAutoApp());
 
     expect(find.text('Professional care for your vehicle.'), findsOneWidget);
-    await tester.tap(find.text('Request an appointment'));
+    await tester.tap(find.text('Request wax or polishing'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Request an appointment'), findsOneWidget);
+    expect(find.text('Request wax or polishing'), findsOneWidget);
     expect(find.byType(Form), findsOneWidget);
   });
 }

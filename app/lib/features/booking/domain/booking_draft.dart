@@ -1,9 +1,6 @@
 enum DetailService {
-  exterior('Exterior detail'),
-  interior('Interior detail'),
-  complete('Complete detail'),
-  paintCorrection('Paint correction'),
-  protection('Paint protection');
+  wax('Wax service'),
+  polishing('Polishing service');
 
   const DetailService(this.label);
 

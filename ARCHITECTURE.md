@@ -17,13 +17,14 @@ share a Flutter codebase across web, iOS, and Android.
 | Surface | Responsibility | Current state |
 | --- | --- | --- |
 | Public website | Services, business details, gallery, local SEO, contact | Existing static site |
-| Customer app | Appointment requests, quotes, vehicles, history, reminders | Foundation in `app/` |
+| Customer app | Wax/polishing requests, quotes, vehicles, history, reminders | Foundation in `app/` |
 | Staff area | Availability, requests, customers, services, reporting | Planned |
 | Backend API | Authentication, authorization, persistence, notifications | Not selected |
 
 ## Release boundaries
 
-The Flutter appointment flow must not be linked from the production website
+Most Splash Auto services are first come, first served. The Flutter appointment
+flow is limited to wax and polishing requests and must not be linked publicly
 until all of the following are implemented and verified:
 
 1. Server-side request persistence and validation.

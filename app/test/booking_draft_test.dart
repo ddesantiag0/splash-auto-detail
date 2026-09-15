@@ -5,7 +5,7 @@ void main() {
   group('BookingDraft', () {
     test('is complete with customer, vehicle, and a valid phone number', () {
       final draft = BookingDraft(
-        service: DetailService.complete,
+        service: DetailService.wax,
         vehicle: '2022 Tesla Model 3',
         customerName: 'David',
         phone: '(619) 555-0123',
@@ -17,7 +17,7 @@ void main() {
 
     test('is incomplete when the phone number is too short', () {
       final draft = BookingDraft(
-        service: DetailService.interior,
+        service: DetailService.polishing,
         vehicle: '2016 Kia Optima',
         customerName: 'David',
         phone: '619-555',

@@ -5,8 +5,10 @@ A responsive static website for Splash Auto Detail, a family-operated auto detai
 The repository now also contains a Flutter/Dart application foundation in
 [`app/`](app/). The public site remains semantic HTML for local SEO, while the
 Flutter application will own appointment requests, customer accounts, and
-staff workflows. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the boundary and
-release plan.
+staff workflows for services that require scheduling. Regular service remains
+first come, first served; wax and polishing work is handled by appointment
+request. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the boundary and release
+plan.
 
 Business requirements and owner approvals are recorded in
 [`OWNER-DISCOVERY.md`](OWNER-DISCOVERY.md), with a plain-language Spanish

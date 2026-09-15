@@ -17,7 +17,7 @@ class _BookingScreenState extends State<BookingScreen> {
   final _phoneController = TextEditingController();
   final _notesController = TextEditingController();
 
-  DetailService _service = DetailService.complete;
+  DetailService _service = DetailService.wax;
   DateTime? _preferredDate;
 
   @override
@@ -98,13 +98,14 @@ class _BookingScreenState extends State<BookingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Request an appointment',
+                    'Request wax or polishing',
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'This starts a request. Splash Auto Detail will confirm '
-                    'availability and service details before the appointment.',
+                    'Regular services are first come, first served. Use this '
+                    'form only for wax or polishing work. Splash Auto Detail '
+                    'will confirm the request before an appointment is set.',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 28),

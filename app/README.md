@@ -9,11 +9,12 @@ root so search engines receive semantic HTML.
 - Responsive phone, tablet, and desktop shell
 - Shared Splash Auto color and typography system
 - Customer home screen
-- Validated appointment-request draft flow
+- Validated wax and polishing appointment-request draft flow
 - Account and staff-area boundaries for future development
 - Domain model and widget tests
 
-No customer request is transmitted yet. Backend submission, authentication,
+Most services remain first come, first served. Only wax and polishing work uses
+the appointment-request flow. No customer request is transmitted yet. Backend submission, authentication,
 availability, pricing, notifications, and payments must be connected before the
 appointment flow is released publicly.
 

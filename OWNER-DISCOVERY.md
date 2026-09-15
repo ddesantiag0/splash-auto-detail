@@ -161,10 +161,16 @@ can be publicly advertised.
 
 ## 4. Appointment workflow
 
-### Is the customer selecting a confirmed appointment or requesting one?
+### Confirmed current service policy
 
-- [ ] The selected time is immediately confirmed
-- [ ] Staff must approve every request
+- **Regular services:** First come, first served
+- **Wax and polishing work:** Appointment by request
+- **Corrections or exceptions:** [TYPE ANSWER HERE]
+
+### What happens after a wax or polishing appointment is requested?
+
+- [ ] Staff must approve and confirm every request
+- [ ] The requested time is automatically confirmed
 - [ ] Other: [TYPE ANSWER HERE]
 
 ### Scheduling rules
@@ -178,7 +184,7 @@ can be publicly advertised.
 - **Maximum appointments per day:** [TYPE ANSWER HERE]
 - **Who can block dates or times?** [TYPE ANSWER HERE]
 - **How are holidays and closures handled?** [TYPE ANSWER HERE]
-- **Are walk-ins still accepted?** [TYPE ANSWER HERE]
+- **How are first-come, first-served customers checked in?** [TYPE ANSWER HERE]
 - **Are phone bookings still accepted?** [TYPE ANSWER HERE]
 
 ### Information required from the customer

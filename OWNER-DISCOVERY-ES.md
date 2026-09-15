@@ -163,10 +163,16 @@ camioneta o van]
 
 ## 4. Proceso de citas
 
-### Cuando el cliente escoge una hora, ¿la cita queda confirmada o necesita aprobación?
+### Regla actual confirmada para atender clientes
 
-- [ ] La cita queda confirmada inmediatamente
-- [ ] El personal debe aprobar cada solicitud
+- **Servicios regulares:** Se atienden conforme van llegando
+- **Trabajos de encerado y pulido:** Se hacen por solicitud de cita
+- **Correcciones o excepciones:** [ESCRIBA AQUÍ]
+
+### ¿Qué pasa después de solicitar una cita para encerado o pulido?
+
+- [ ] El personal debe aprobar y confirmar cada solicitud
+- [ ] La hora solicitada queda confirmada automáticamente
 - [ ] Otra manera: [ESCRIBA AQUÍ]
 
 ### Reglas para programar citas
@@ -180,7 +186,7 @@ camioneta o van]
 - **Máximo de citas por día:** [ESCRIBA AQUÍ]
 - **¿Quién puede bloquear días u horas?** [ESCRIBA AQUÍ]
 - **¿Cómo se manejan días festivos y cierres?** [ESCRIBA AQUÍ]
-- **¿Se aceptan clientes sin cita?** [ESCRIBA AQUÍ]
+- **¿Cómo registran a los clientes conforme van llegando?** [ESCRIBA AQUÍ]
 - **¿Se siguen aceptando citas por teléfono?** [ESCRIBA AQUÍ]
 
 ### Información necesaria del cliente

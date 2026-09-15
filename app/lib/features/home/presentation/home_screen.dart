@@ -25,15 +25,16 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Start an appointment request, tell us about your vehicle, '
-                'and let Splash Auto Detail confirm the right service.',
+                'Regular services are first come, first served. Wax and '
+                'polishing jobs can be requested in advance and are confirmed '
+                'by Splash Auto Detail.',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 24),
               FilledButton.icon(
                 onPressed: onStartBooking,
                 icon: const Icon(Icons.calendar_month_rounded),
-                label: const Text('Request an appointment'),
+                label: const Text('Request wax or polishing'),
               ),
               const SizedBox(height: 32),
               const Wrap(
