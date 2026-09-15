@@ -19,6 +19,10 @@ boundaries, review process, and remaining launch work. The approved shop-wait
 feature uses the [FastAPI/MongoDB backend](backend/README.md); cloud setup and
 owner account enrollment are still pending.
 
+Use the [backend activation guide](docs/BACKEND-ACTIVATION.md) for the staging
+release setup and the [English/Spanish owner guide](docs/OWNER-WAIT-GUIDE.md)
+once access is connected.
+
 ## Implemented features
 
 - Mobile-first HTML and CSS with a responsive navigation menu

@@ -146,7 +146,9 @@ The deployment task should build a versioned backend image, push it to Splash's
 ECR repository, and run it on the selected host with secrets supplied at runtime.
 GitHub OIDC and an instance role avoid storing long-lived AWS access keys in the
 repository. Exact resources and permissions belong in the deployment task once
-the target accounts are available; no deploy workflow is active today.
+the target accounts are available. A manual image-publishing workflow is prepared;
+it requires staging configuration and does not deploy to a host. See the
+[activation guide](BACKEND-ACTIVATION.md).
 
 Record the released commit and image digest. Before launch, establish a previous
 working image to roll back to, database backup/recovery steps, health monitoring,
@@ -161,7 +163,7 @@ review environment before the production rollout.
 | 1 | Owner-screen usability | Both owners can sign in, update a range, recover from a conflict, and sign out on their phones | Configured review API and separate owner accounts |
 | 1 | Backend activation | Dedicated resources, HTTPS/WSS, explicit origins, health checks, and deployed version recorded | Splash account access, budget, domain, owner emails |
 | 1 | End-to-end review | Website and Flutter show the same update and handle expiry/disconnection accurately | Backend activation and rebuilt clients |
-| 2 | Owner operating guide | Short English/Spanish steps for updating, expiry, conflicts, and access recovery | Stable reviewed owner flow |
+| 2 | Owner operating guide review | [English/Spanish guide](OWNER-WAIT-GUIDE.md) prepared; verify its steps with both owners | Activated and reviewed owner flow |
 | 2 | Content completion | Owner answers reconciled; authorized photos and accurate captions added | Both owners' responses and photo folder |
 | 2 | Release controls | Agreed merge checks, deployment trigger, rollback steps, and monitoring verified | Hosting setup and reviewed release process |
 | Later | Appointment backend | Written acceptance criteria agreed before implementation | Confirmed intake and confirmation rules |

@@ -52,6 +52,11 @@ Snapshots start expired; no fake green status is seeded. Updates set server time
 
 Provision dedicated Splash resources after AWS account, Atlas project, region, budget and owner identities are confirmed. The Docker image supports the EC2/ECR approach used at ooLEO, but nothing has been provisioned or deployed there yet.
 
+The [activation guide](../docs/BACKEND-ACTIVATION.md) covers the manual ECR image
+publishing workflow, required environment variables, and the separate host/client
+activation steps. Adding the workflow does not activate cloud publishing or deploy
+the server.
+
 1. Create the Atlas database and least-privilege application user for the `splash` database. Allow only the API host's egress IP/private network. Use the Atlas TLS connection string.
 2. Build and push `backend/` to a dedicated ECR repository, using GitHub OIDC for image-push permission. For an ARM EC2 instance build `linux/arm64`; do not deploy an x86-only image.
 3. Give EC2 an instance role for ECR pull and secret retrieval. Keep `MONGODB_URI` in AWS Secrets Manager or a protected host environment file, never GitHub source, build arguments, or browser code. Set `MONGODB_DATABASE=splash` and explicit comma-separated `ALLOWED_ORIGINS` for the website and Flutter hosts.
