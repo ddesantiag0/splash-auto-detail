@@ -8,6 +8,9 @@ Flutter application will own appointment requests, customer accounts, and
 staff workflows. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the boundary and
 release plan.
 
+Business requirements and owner approvals are recorded in
+[`OWNER-DISCOVERY.md`](OWNER-DISCOVERY.md).
+
 ## Implemented features
 
 - Mobile-first HTML and CSS with a responsive navigation menu
@@ -65,6 +68,7 @@ robots.txt         Search crawler policy
 sitemap.xml        Canonical site URL
 SEO-*.md           Deployment and local-search guidance
 ARCHITECTURE.md     Hybrid product boundary and release plan
+OWNER-DISCOVERY.md  Editable owner questionnaire and decision record
 ```
 
 ## Content accuracy
