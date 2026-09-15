@@ -44,8 +44,13 @@ const todayHoursEl = document.getElementById('todayHours');
 
 if (todayHoursEl) {
   const now = new Date();
-  const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-  const currentTime = now.getHours() * 60 + now.getMinutes(); // Time in minutes since midnight
+  // Always use the shop's local time, including daylight-saving changes.
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles',
+    weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(now).map(({ type, value }) => [type, value]));
+  const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(parts.weekday);
+  const currentTime = Number(parts.hour) * 60 + Number(parts.minute);
 
   // Define business hours in minutes since midnight
   const HOURS = {
@@ -124,10 +129,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
     
-    // Skip if it's just "#" or "#top"
-    if (href === '#' || href === '#top') {
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto' : 'smooth';
+
+    if (href === '#') {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior });
       return;
     }
 
@@ -136,13 +143,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     if (target) {
       e.preventDefault();
       
+      // Move keyboard focus along with the visual navigation.
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+
       // Calculate offset for sticky header
       const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
       const targetPosition = target.offsetTop - headerHeight - 20;
       
       window.scrollTo({
         top: targetPosition,
-        behavior: 'smooth'
+        behavior
       });
     }
   });
@@ -192,8 +203,12 @@ function initGallery() {
       const filter = button.dataset.filter;
 
       // Update active button
-      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      filterButtons.forEach((btn) => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
       button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
 
       // Filter items
       galleryItems.forEach((item) => {
@@ -313,7 +328,7 @@ if (document.readyState === 'loading') {
 // ACCESSIBILITY ENHANCEMENTS
 // ==========================================
 
-// Trap focus in mobile menu when open
+// The mobile menu is an inline disclosure, not a modal: allow normal Tab navigation.
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
     if (navLinks.classList.contains('open')) {
