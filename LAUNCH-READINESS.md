@@ -43,10 +43,12 @@
 | --- | --- | --- |
 | Logo | David's preferred direction selected | Exact transparent PNG integrated on review branch; both owners review final branding |
 | Photos | Awaiting Drive folder | Obtain real photos and publication permission |
-| Address | Page says 851 Showroom Pl; live embedded map labels 851 District Pl | Both owners confirm the correct address and map pin |
+| Map destination | Fixed: embed selects Splash Auto Detail; directions use its unique Google Place ID | User identified the shop pin; business listing verified against the screenshot. Written address remains unchanged. |
 | Business details | Phone, hours, services and claims still require verification | Complete English/Spanish questionnaires |
 | Domain | Prior audit reported DNS setup unresolved | Verify registrar, domain and hosting configuration before launch |
 | SEO | Rating markup, business type and sitemap still need review | Correct against verified business details |
 | Optional features | Tracker, backend, notifications and payments pending decisions | Keep in questionnaire backlog until agreed |
 
 Owner-entered questionnaire answers are preserved in their existing files. This document records progress and open work; it does not replace those answers or constitute owner approval.
+
+Map identity: `ChIJ-coXU4RF2YAR1qEX3qNuZW0` (Google Place ID), `0x80d945845317caf9:0x6d656ea3de17a1d6` (embed feature). The embed URL was obtained from the listing’s Share → Embed a map view. This fixes destination selection; it does not edit the Google Business listing.
