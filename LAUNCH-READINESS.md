@@ -3,7 +3,7 @@
 ## Agreed direction
 
 - Keep the public HTML/CSS/JavaScript site alongside the Flutter/Dart application.
-- David selected the blue splash and car silhouette with bold lettering, cleaned up on white. The supplied transparent PNG is integrated unchanged in the public header/footer and Flutter app bar, on white surfaces for legibility. Both owners still review official branding.
+- David selected the blue splash and car silhouette with bold lettering, cleaned up on white. The supplied transparent PNG is integrated unchanged in the public header/footer and Flutter app bar, directly on the existing surfaces without a white backing, as requested by David. Both owners still review official branding.
 - Both owners have equal authority and review all business decisions.
 - Regular services are first come, first served. Wax and polishing use appointment requests.
 - The vehicle progress tracker remains an idea only. No prototype or implementation is approved.

@@ -32,18 +32,12 @@ class _AppShellState extends State<AppShell> {
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: ColoredBox(
-                color: Colors.white,
-                child: Image.asset(
-                  'assets/branding/splash-auto-logo.png',
-                  width: 120,
-                  height: 50,
-                  fit: BoxFit.contain,
-                  semanticLabel: 'Splash Auto Detail',
-                ),
-              ),
+            title: Image.asset(
+              'assets/branding/splash-auto-logo.png',
+              width: 120,
+              height: 50,
+              fit: BoxFit.contain,
+              semanticLabel: 'Splash Auto Detail',
             ),
             centerTitle: false,
           ),

@@ -192,8 +192,7 @@ h3 {
   width: 210px;
   max-width: 100%;
   height: auto;
-  background: #fff;
-  border-radius: var(--radius-sm);
+  background: transparent;
 }
 
 @media (max-width: 480px) {
