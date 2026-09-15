@@ -107,7 +107,6 @@ class _InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 270,
-      height: 155,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(20),
