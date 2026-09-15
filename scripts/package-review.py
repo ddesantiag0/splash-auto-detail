@@ -13,6 +13,7 @@ out.mkdir()
 for name in ('index.html', 'styles.css', 'script.js', 'preferences.js', 'translations.js'):
     shutil.copy2(root / name, out / name)
 shutil.copytree(root / 'images', out / 'images')
+shutil.copytree(root / 'availability', out / 'availability')
 shutil.copytree(app, out / 'app')
 page = out / 'index.html'
 html = page.read_text()

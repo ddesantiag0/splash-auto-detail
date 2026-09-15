@@ -5,6 +5,7 @@ import '../core/localization/app_text.dart';
 
 import '../core/theme/app_theme.dart';
 import '../features/shell/presentation/app_shell.dart';
+import '../features/availability/owner_screen.dart';
 
 class SplashAutoApp extends StatelessWidget {
   const SplashAutoApp({super.key});
@@ -25,6 +26,7 @@ class SplashAutoApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       home: const AppShell(),
+      routes: {'/owner': (_) => const OwnerScreen()},
     );
   }
 }

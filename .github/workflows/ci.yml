@@ -19,6 +19,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run build:availability
+      - run: git diff --exit-code -- availability/customer.bundle.js
       - run: npm test
 
   flutter:
@@ -44,3 +46,7 @@ jobs:
           name: splash-review
           path: review-dist/
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flutter-dependency-lock
+          path: app/pubspec.lock

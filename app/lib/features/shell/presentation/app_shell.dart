@@ -42,6 +42,7 @@ class _AppShellState extends State<AppShell> {
               semanticLabel: 'Splash Auto Detail',
             ),
             centerTitle: false,
+            actions: [IconButton(tooltip: tr(context, 'Owner controls'), icon: const Icon(Icons.admin_panel_settings_outlined), onPressed: () => Navigator.of(context).pushNamed('/owner'))],
           ),
           body: wide
               ? Row(

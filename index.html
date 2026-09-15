@@ -160,6 +160,7 @@
       }
     }
     </script>
+  <link rel="stylesheet" href="availability/styles.css">
   </head>
 
   <body>
@@ -225,6 +226,16 @@
               work is available by appointment request.
             </p>
 
+            <section class="shop-wait" id="shop-wait" aria-labelledby="wait-heading">
+              <h2 id="wait-heading" data-wait-title>Current shop wait</h2>
+              <div role="status" aria-live="polite" aria-atomic="true">
+                <strong data-wait-status>Current wait unavailable</strong>
+                <p data-wait-estimate></p>
+              </div>
+              <p data-wait-note>Estimated time until service starts. Wait may change.</p>
+              <p data-wait-updated></p>
+              <a href="tel:+16199938536" data-wait-call>Call for current wait</a>
+            </section>
             <div class="hero-badges">
               <div class="badge">
                 <svg class="badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -694,5 +705,7 @@
     <script src="translations.js"></script>
     <script src="script.js"></script>
     <script src="preferences.js"></script>
+  <script src="availability/config.js"></script>
+    <script defer src="availability/customer.bundle.js"></script>
   </body>
 </html>

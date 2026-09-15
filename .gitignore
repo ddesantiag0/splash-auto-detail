@@ -1,1 +1,4 @@
 review-dist/
+node_modules/
+
+supabase/.temp/

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../availability/wait_card.dart';
 
 import '../../../core/localization/app_text.dart';
 
@@ -16,6 +17,8 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const _StatusPill(),
+          const SizedBox(height: 16),
+          const WaitCard(),
           const SizedBox(height: 20),
           const PageHeading('Professional care for your vehicle.'),
           const SizedBox(height: 12),
