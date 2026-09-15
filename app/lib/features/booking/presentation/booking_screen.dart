@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/responsive_page.dart';
 import '../domain/booking_draft.dart';
+import '../domain/booking_validation.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
@@ -30,7 +31,7 @@ class _BookingScreenState extends State<BookingScreen> {
     super.dispose();
   }
 
-  Future<void> _chooseDate() async {
+  Future<void> _chooseDate(FormFieldState<DateTime> field) async {
     final today = DateUtils.dateOnly(DateTime.now());
     final selected = await showDatePicker(
       context: context,
@@ -39,19 +40,15 @@ class _BookingScreenState extends State<BookingScreen> {
       lastDate: today.add(const Duration(days: 180)),
       selectableDayPredicate: (date) => date.weekday != DateTime.sunday,
     );
-    if (selected != null) setState(() => _preferredDate = selected);
+    if (!mounted || selected == null) return;
+
+    setState(() => _preferredDate = selected);
+    field.didChange(selected);
   }
 
   void _reviewRequest() {
     final valid = _formKey.currentState?.validate() ?? false;
-    if (!valid || _preferredDate == null) {
-      if (_preferredDate == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Choose a preferred appointment date.')),
-        );
-      }
-      return;
-    }
+    if (!valid) return;
 
     final draft = BookingDraft(
       service: _service,
@@ -129,7 +126,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   labelText: 'Year, make, and model',
                   hintText: 'Example: 2022 Tesla Model 3',
                 ),
-                validator: (value) => value == null || value.trim().isEmpty
+                validator: (value) => !BookingValidation.hasRequiredText(value)
                     ? 'Enter the vehicle year, make, and model.'
                     : null,
               ),
@@ -137,55 +134,79 @@ class _BookingScreenState extends State<BookingScreen> {
             const SizedBox(height: 16),
             SectionCard(
               title: '3. Pick a preferred date',
-              child: OutlinedButton.icon(
-                onPressed: _chooseDate,
-                icon: const Icon(Icons.event_outlined),
-                label: Text(
-                  _preferredDate == null
-                      ? 'Choose a date'
-                      : _formatDate(_preferredDate!),
+              child: FormField<DateTime>(
+                initialValue: _preferredDate,
+                validator: (value) => value == null
+                    ? 'Choose a preferred appointment date.'
+                    : null,
+                builder: (field) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () => _chooseDate(field),
+                      icon: const Icon(Icons.event_outlined),
+                      label: Text(
+                        _preferredDate == null
+                            ? 'Choose a date'
+                            : _formatDate(_preferredDate!),
+                      ),
+                    ),
+                    if (field.hasError) ...[
+                      const SizedBox(height: 8),
+                      Semantics(
+                        liveRegion: true,
+                        child: Text(
+                          field.errorText!,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
             SectionCard(
               title: '4. Contact information',
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _nameController,
-                    textInputAction: TextInputAction.next,
-                    autofillHints: const [AutofillHints.name],
-                    decoration: const InputDecoration(labelText: 'Full name'),
-                    validator: (value) => value == null || value.trim().isEmpty
-                        ? 'Enter your name.'
-                        : null,
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    autofillHints: const [AutofillHints.telephoneNumber],
-                    decoration: const InputDecoration(labelText: 'Phone number'),
-                    validator: (value) {
-                      final digits =
-                          value?.replaceAll(RegExp(r'\D'), '') ?? '';
-                      return digits.length < 10
-                          ? 'Enter a valid 10-digit phone number.'
-                          : null;
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: _notesController,
-                    maxLines: 4,
-                    decoration: const InputDecoration(
-                      labelText: 'Notes (optional)',
-                      hintText:
-                          'Tell us about stains, paint condition, or concerns.',
+              child: AutofillGroup(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      textInputAction: TextInputAction.next,
+                      autofillHints: const [AutofillHints.name],
+                      decoration: const InputDecoration(labelText: 'Full name'),
+                      validator: (value) =>
+                          !BookingValidation.hasRequiredText(value)
+                              ? 'Enter your name.'
+                              : null,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _phoneController,
+                      keyboardType: TextInputType.phone,
+                      autofillHints: const [AutofillHints.telephoneNumber],
+                      decoration:
+                          const InputDecoration(labelText: 'Phone number'),
+                      validator: (value) =>
+                          !BookingValidation.hasValidPhone(value)
+                              ? 'Enter a valid 10-digit phone number.'
+                              : null,
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _notesController,
+                      maxLines: 4,
+                      decoration: const InputDecoration(
+                        labelText: 'Notes (optional)',
+                        hintText:
+                            'Tell us about stains, paint condition, or concerns.',
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 24),

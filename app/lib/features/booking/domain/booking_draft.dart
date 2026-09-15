@@ -1,3 +1,5 @@
+import 'booking_validation.dart';
+
 enum DetailService {
   wax('Wax service'),
   polishing('Polishing service');
@@ -25,7 +27,7 @@ class BookingDraft {
   final String notes;
 
   bool get isComplete =>
-      vehicle.trim().isNotEmpty &&
-      customerName.trim().isNotEmpty &&
-      phone.replaceAll(RegExp(r'\D'), '').length >= 10;
+      BookingValidation.hasRequiredText(vehicle) &&
+      BookingValidation.hasRequiredText(customerName) &&
+      BookingValidation.hasValidPhone(phone);
 }
