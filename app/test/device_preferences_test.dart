@@ -28,6 +28,8 @@ void main() {
         expect(find.text('Cuidado profesional para tu vehículo.'), findsOneWidget);
         final context = tester.element(find.byType(Scaffold).first);
         expect(Theme.of(context).brightness, brightness);
+        await tester.ensureVisible(find.text('Solicitar encerado o pulido'));
+        await tester.pumpAndSettle();
         await tester.tap(find.text('Solicitar encerado o pulido'));
         await tester.pumpAndSettle();
         await tester.ensureVisible(find.text('Revisar solicitud'));

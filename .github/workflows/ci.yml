@@ -36,6 +36,10 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flutter-dependency-lock
+          path: app/pubspec.lock
       - run: flutter analyze
       - run: flutter test
       - run: flutter build web --release --base-href /app/ --no-web-resources-cdn
@@ -46,7 +50,3 @@ jobs:
           name: splash-review
           path: review-dist/
           if-no-files-found: error
-      - uses: actions/upload-artifact@v4
-        with:
-          name: flutter-dependency-lock
-          path: app/pubspec.lock

@@ -12,6 +12,8 @@ root so search engines receive semantic HTML.
 - Validated wax and polishing appointment-request draft flow
 - Account and staff-area boundaries for future development
 - Domain model and widget tests
+- Live shop-wait customer card and authenticated owner controls (`/owner`)
+- Supabase integration prepared; project and owner enrollment pending
 
 Most services remain first come, first served. Only wax and polishing work uses
 the appointment-request flow. No customer request is transmitted yet. Backend submission, authentication,
@@ -46,3 +48,7 @@ flutter create . --platforms=android,ios
 
 Review generated files before committing them. Do not overwrite the files in
 `lib/`, `test/`, `web/`, or this README.
+
+## Live shop wait setup
+
+See [availability setup](../availability/README.md). Configure `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` as Dart defines when building. Without them, customer screens safely report unavailable and the owner screen explains that access is not connected. This feature is independent of appointment submission.
