@@ -3,7 +3,7 @@
 ## Agreed direction
 
 - Keep the public HTML/CSS/JavaScript site alongside the Flutter/Dart application.
-- David selected the blue splash and car silhouette with bold lettering, cleaned up on white. Preserve that exact design; the source image must be supplied before integration and export. Both owners still review official branding.
+- David selected the blue splash and car silhouette with bold lettering, cleaned up on white. The supplied transparent PNG is integrated unchanged in the public header/footer and Flutter app bar, on white surfaces for legibility. Both owners still review official branding.
 - Both owners have equal authority and review all business decisions.
 - Regular services are first come, first served. Wax and polishing use appointment requests.
 - The vehicle progress tracker remains an idea only. No prototype or implementation is approved.
@@ -34,7 +34,7 @@
 
 | Item | Current state | Next action |
 | --- | --- | --- |
-| Logo | David's preferred direction selected | Supply exact image asset; both owners review final branding |
+| Logo | David's preferred direction selected | Exact transparent PNG integrated on review branch; both owners review final branding |
 | Photos | Awaiting Drive folder | Obtain real photos and publication permission |
 | Address | Page says 851 Showroom Pl; live embedded map labels 851 District Pl | Both owners confirm the correct address and map pin |
 | Business details | Phone, hours, services and claims still require verification | Complete English/Spanish questionnaires |

@@ -188,31 +188,18 @@ h3 {
   opacity: 0.8;
 }
 
-.brand-mark {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  font-size: 1.25rem;
+.brand-logo {
+  width: 210px;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: var(--radius-sm);
 }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.brand-text strong {
-  font-size: 1.063rem;
-  font-weight: 700;
-}
-
-.brand-text span {
-  color: var(--text-muted);
-  font-size: 0.875rem;
+@media (max-width: 480px) {
+  .site-header .brand-logo {
+    width: 180px;
+  }
 }
 
 .nav-links {

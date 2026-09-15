@@ -31,11 +31,19 @@ class _AppShellState extends State<AppShell> {
 
         return Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.directions_car_filled_rounded),
-            title: const Text(
-              'Splash Auto Detail',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            automaticallyImplyLeading: false,
+            title: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: ColoredBox(
+                color: Colors.white,
+                child: Image.asset(
+                  'assets/branding/splash-auto-logo.png',
+                  width: 120,
+                  height: 50,
+                  fit: BoxFit.contain,
+                  semanticLabel: 'Splash Auto Detail',
+                ),
+              ),
             ),
             centerTitle: false,
           ),
